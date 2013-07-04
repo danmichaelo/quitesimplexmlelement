@@ -81,6 +81,11 @@ class CustomXMLElement {
             'marc' => 'http://www.loc.gov/MARC21/slim'
         );*/
         $this->namespaces = array();
+
+        if ($elem == false) {
+            throw new Exception("Cannot create a CustomXmlElement with no content");
+        }
+
         if (gettype($elem) == 'string') {
             $this->el = new SimpleXMLElement($elem);
         } else {
