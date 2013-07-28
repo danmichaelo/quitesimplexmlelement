@@ -82,7 +82,7 @@ class CustomXMLElement {
         );*/
         $this->namespaces = array();
 
-        if ($elem == false) {
+        if ($elem === false) {
             throw new Exception("Cannot create a CustomXmlElement with no content");
         }
 
@@ -125,7 +125,9 @@ class CustomXMLElement {
     function first($path) {
         # Convenience method 
         $x = $this->xpath($path);
-        return (count($x) === 0) ? false : new CustomXMLElement($x[0], $this);
+        return (count($x) === 0) 
+            ? false 
+            : new CustomXMLElement($x[0], $this);
     }
 
     function el() {
