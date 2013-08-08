@@ -37,7 +37,7 @@
  * And while we're at it, we can add a few convenience methods...
  */
 
-namespace Scriptotek\CustomXmlElement;
+namespace Scriptotek\CustomXMLElement;
 
 class XmlResultSet {
     public $xmlObjs = array();
@@ -56,7 +56,7 @@ class XmlResult
     public function __construct($file)
     {
         try {
-            $this->xmlObj = new SimpleXMLElement($file, 0, true);
+            $this->xmlObj = new \SimpleXMLElement($file, 0, true);
         }
         catch (Exception $e) {
             throw new MyException("Invalid argument ($this)($file)(" . $e .
@@ -89,7 +89,7 @@ class CustomXMLElement {
         }
 
         if (gettype($elem) == 'string') {
-            $this->el = new SimpleXMLElement($elem);
+            $this->el = new \SimpleXMLElement($elem);
         } else {
             $this->el = $elem; // assume it's a SimpleXMLElement
         }
