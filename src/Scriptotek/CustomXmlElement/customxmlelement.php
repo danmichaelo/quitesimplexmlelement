@@ -37,6 +37,8 @@
  * And while we're at it, we can add a few convenience methods...
  */
 
+namespace Scriptotek\CustomXmlElement;
+
 class XmlResultSet {
     public $xmlObjs = array();
 

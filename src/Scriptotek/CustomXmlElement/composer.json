@@ -1,0 +1,20 @@
+{
+    "name": "scriptotek/customxmlelement",
+    "description": "Simple extension to SimpleXmlElement for easier namespace handling",
+    "authors": [
+        {
+            "name": "Dan Michael O. Heggø",
+            "email": "danmichaelo@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.0.1"
+    },
+    "autoload": {
+        "psr-0": {
+            "Scriptotek\\CustomXmlElement": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
