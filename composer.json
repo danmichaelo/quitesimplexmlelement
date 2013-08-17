@@ -1,6 +1,7 @@
 {
     "name": "danmichaelo/customxmlelement",
-    "description": "Simple extension to SimpleXmlElement for easier namespace handling",
+    "description": "Simple wrapper around SimpleXmlElement for easier namespace handling",
+    "keywords": ["xml"],
     "authors": [
         {
             "name": "Dan Michael O. Heggø",
