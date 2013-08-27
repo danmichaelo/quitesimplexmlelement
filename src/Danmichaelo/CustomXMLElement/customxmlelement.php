@@ -44,36 +44,6 @@ class InvalidXMLException extends \Exception
 
 }
 
-class XmlResultSet {
-    public $xmlObjs = array();
-
-    public function __construct(array $xmlFiles) {
-        foreach ($xmlFiles as $file) {
-            $this->xmlObjs[] = new XmlResult($file);
-        }
-    }
-}
-
-class XmlResult
-{
-    private $xmlObj;
-
-    public function __construct($file)
-    {
-        try {
-            $this->xmlObj = new \SimpleXMLElement($file, 0, true);
-        }
-        catch (\Exception $e) {
-            throw new InvalidXMLException("Invalid XML encountered");
-        }
-    }
-
-    public function otherFunctions()
-    {
-        return $this->xmlObj->movie['name']; // whatever
-    }
-}
-
 class CustomXMLElement {
 
     #
@@ -81,16 +51,8 @@ class CustomXMLElement {
     # for list of functions with arguments
     #
     function __construct($elem, $inherit_from=null) {
-        /*
-        $ns = array(
-            'srw' => 'http://www.loc.gov/zing/srw/',
-            'marc' => 'http://www.loc.gov/MARC21/slim'
-        );*/
-        $this->namespaces = array();
 
-        if ($elem === false) {
-            throw new InvalidXMLException("Cannot create a CustomXmlElement with no content");
-        }
+        $this->namespaces = array();
 
         if (gettype($elem) == 'string') {
             try {
@@ -108,9 +70,6 @@ class CustomXMLElement {
             }
         }
 
-        /*
-        $this->el->registerXPathNamespace('srw', $ns['srw']);
-        $this->el->registerXPathNamespace('marc', $ns['marc']);*/
     }
 
     function registerXPathNamespace($prefix, $uri) {
