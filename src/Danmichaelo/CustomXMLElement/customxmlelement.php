@@ -39,6 +39,11 @@
 
 namespace Danmichaelo\CustomXMLElement;
 
+class InvalidXMLException extends \Exception
+{
+
+}
+
 class XmlResultSet {
     public $xmlObjs = array();
 
@@ -58,9 +63,8 @@ class XmlResult
         try {
             $this->xmlObj = new \SimpleXMLElement($file, 0, true);
         }
-        catch (Exception $e) {
-            throw new MyException("Invalid argument ($this)($file)(" . $e .
-            ")", PHP_ERRORS);
+        catch (\Exception $e) {
+            throw new InvalidXMLException("Invalid XML encountered");
         }
     }
 
@@ -85,11 +89,16 @@ class CustomXMLElement {
         $this->namespaces = array();
 
         if ($elem === false) {
-            throw new Exception("Cannot create a CustomXmlElement with no content");
+            throw new InvalidXMLException("Cannot create a CustomXmlElement with no content");
         }
 
         if (gettype($elem) == 'string') {
-            $this->el = new \SimpleXMLElement($elem);
+            try {
+                $this->el = new \SimpleXMLElement($elem);
+            } catch (\Exception $e) {
+                throw new InvalidXMLException("Invalid XML encountered");
+            }
+
         } else {
             $this->el = $elem; // assume it's a SimpleXMLElement
         }
