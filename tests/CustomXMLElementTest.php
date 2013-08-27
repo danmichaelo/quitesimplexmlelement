@@ -1,12 +1,6 @@
-<?php
+<?php namespace Danmichaelo\CustomXMLElement;
 
-require 'vendor/autoload.php';
-
-use Danmichaelo\CustomXMLElement\CustomXMLElement;
-
-date_default_timezone_set('Europe/Oslo');
-
-class CustomXMLElementTest extends PHPUnit_Framework_TestCase {
+class CustomXMLElementTest extends \PHPUnit_Framework_TestCase {
 	
 	public function testExampleXmlWithNamespace() {
 		$xml = '
