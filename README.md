@@ -1,6 +1,10 @@
 CustomXMLElement
 ===============
 
+[![Build Status](https://travis-ci.org/danmichaelo/customxmlelement.png?branch=master)](https://travis-ci.org/danmichaelo/customxmlelement)
+[![Coverage Status](https://coveralls.io/repos/danmichaelo/customxmlelement/badge.png?branch=master)](https://coveralls.io/r/danmichaelo/customxmlelement?branch=master)
+
+
 The `CustomXMLElement` class is a small wrapper around the `SimpleXMLElement` class. The main reason for developing the class was to let objects returned by the `xpath()`
 method inherit namespaces from the original object.
 
