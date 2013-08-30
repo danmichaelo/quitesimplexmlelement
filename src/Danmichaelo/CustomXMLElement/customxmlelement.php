@@ -42,6 +42,10 @@ namespace Danmichaelo\CustomXMLElement;
 class InvalidXMLException extends \Exception
 {
 
+    public function __construct($message = null, $code = 0, Exception $previous = null) {
+        parent::__construct($message, $code, $previous);
+    }
+
 }
 
 class CustomXMLElement {
@@ -58,7 +62,7 @@ class CustomXMLElement {
             try {
                 $this->el = new \SimpleXMLElement($elem);
             } catch (\Exception $e) {
-                throw new InvalidXMLException("Invalid XML encountered");
+                throw new InvalidXMLException("Invalid XML encountered: " . $elem);
             }
 
         } else {
