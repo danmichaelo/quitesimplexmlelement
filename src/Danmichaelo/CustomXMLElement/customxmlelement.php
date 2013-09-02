@@ -50,6 +50,9 @@ class InvalidXMLException extends \Exception
 
 class CustomXMLElement {
 
+    public $namespaces;
+    public $el;
+
     #
     # See https://github.com/draffter/FollowFunctionPHP/blob/master/_php/SimpleXML.php
     # for list of functions with arguments
@@ -64,10 +67,16 @@ class CustomXMLElement {
             } catch (\Exception $e) {
                 throw new InvalidXMLException("Invalid XML encountered: " . $elem);
             }
-
+        } else if (gettype($elem) == 'object') {
+            if (in_array(get_class($elem), array('Danmichaelo\CustomXMLElement\CustomXMLElement', 'SimpleXMLElement'))) {
+                $this->el = $elem; // assume it's a SimpleXMLElement
+            } else {
+                throw new \InvalidArgumentException('Unknown object given to CustomXMLElement. Expected SimpleXMLElement or CustomXMLElement.');
+            }
         } else {
-            $this->el = $elem; // assume it's a SimpleXMLElement
+            throw new \InvalidArgumentException('CustomXMLElement expects a string or a CustomXMLElement/SimpleXMLElement object.');
         }
+
         if ($inherit_from != null) {
             foreach ($inherit_from->namespaces as $prefix => $uri) {
                 $this->registerXPathNamespace($prefix, $uri);

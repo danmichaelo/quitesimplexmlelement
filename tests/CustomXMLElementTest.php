@@ -76,6 +76,27 @@ class CustomXMLElementTest extends \PHPUnit_Framework_TestCase {
 	public function testParseEmptyXML() {
 		$xml = '';
 		new CustomXMLElement($xml);
-	}	
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
+	public function testArgumentIsNull() {
+		$dom = new CustomXMLElement(null);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
+	public function testArgumentOfUnknownType() {
+		$dom = new CustomXMLElement(2.0);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
+	public function testArgumentOfUnknownClass() {
+		$dom = new CustomXMLElement(new \DateTime);
+	}
 
 }
