@@ -3,6 +3,8 @@ CustomXMLElement
 
 [![Build Status](https://travis-ci.org/danmichaelo/customxmlelement.png?branch=master)](https://travis-ci.org/danmichaelo/customxmlelement)
 [![Coverage Status](https://coveralls.io/repos/danmichaelo/customxmlelement/badge.png?branch=master)](https://coveralls.io/r/danmichaelo/customxmlelement?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/danmichaelo/customxmlelement/version.png)](https://packagist.org/packages/danmichaelo/customxmlelement)
+[![Total Downloads](https://poser.pugx.org/danmichaelo/customxmlelement/downloads.png)](https://packagist.org/packages/danmichaelo/customxmlelement)
 
 
 The `CustomXMLElement` class is a small wrapper around the `SimpleXMLElement` class. The main reason for developing the class was to let objects returned by the `xpath()`
