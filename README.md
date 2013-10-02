@@ -1,16 +1,16 @@
-CustomXMLElement
+QuiteSimpleXMLElement
 ===============
 
-[![Build Status](https://travis-ci.org/danmichaelo/customxmlelement.png?branch=master)](https://travis-ci.org/danmichaelo/customxmlelement)
-[![Coverage Status](https://coveralls.io/repos/danmichaelo/customxmlelement/badge.png?branch=master)](https://coveralls.io/r/danmichaelo/customxmlelement?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/danmichaelo/customxmlelement/version.png)](https://packagist.org/packages/danmichaelo/customxmlelement)
-[![Total Downloads](https://poser.pugx.org/danmichaelo/customxmlelement/downloads.png)](https://packagist.org/packages/danmichaelo/customxmlelement)
+[![Build Status](https://travis-ci.org/danmichaelo/quitesimplexmlelement.png?branch=master)](https://travis-ci.org/danmichaelo/quitesimplexmlelement)
+[![Coverage Status](https://coveralls.io/repos/danmichaelo/quitesimplexmlelement/badge.png?branch=master)](https://coveralls.io/r/danmichaelo/quitesimplexmlelement?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/danmichaelo/quitesimplexmlelement/version.png)](https://packagist.org/packages/danmichaelo/quitesimplexmlelement)
+[![Total Downloads](https://poser.pugx.org/danmichaelo/quitesimplexmlelement/downloads.png)](https://packagist.org/packages/danmichaelo/quitesimplexmlelement)
 
 
-The `CustomXMLElement` class is a small wrapper around the `SimpleXMLElement` class. The main reason for developing the class was to let objects returned by the `xpath()`
+The `QuiteSimpleXMLElement` class is a small wrapper around the `SimpleXMLElement` class. It was formerly known as `CustomXMLElement`. The main reason for developing the class was to let objects returned by the `xpath()`
 method inherit namespaces from the original object.
 
-Taking an example document, 
+Taking an example document,
 
     $xml = '<root xmlns:dc="http://purl.org/dc/elements/1.1/">
         <dc:a>
@@ -29,9 +29,9 @@ Using SimpleXMLElement I found myself having to register namespaces over and ove
     $b = $a[0]->xpath('d:b');
     echo trim((string)$b[0]);
 
-CustomXMLElement allows for slightly less typing:
+QuiteSimpleXMLElement allows for slightly less typing:
 
-    $root = new CustomXMLElement($xml);
+    $root = new QuiteSimpleXMLElement($xml);
     $root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
     $a = $root->xpath('d:a');
     $b = $a->xpath('d:b');
@@ -41,6 +41,6 @@ A note on the design: I would have preferred to extend the original SimpleXMLEle
 
 There's also a few new convenience methods added, such as `text()`.
 
-    $root = new CustomXMLElement($xml);
+    $root = new QuiteSimpleXMLElement($xml);
     $root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
     echo $root->text('d:a/d:b');

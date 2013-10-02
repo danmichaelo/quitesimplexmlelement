@@ -2,7 +2,7 @@
 /* 
  * (c) Dan Michael O. Heggø (2013)
  * 
- * CustomXMLElement is a wrapper around SimpleXMLElement to add a quite simple
+ * QuiteSimpleXMLElement is a wrapper around SimpleXMLElement to add a quite simple
  * feature not present in SimpleXMLElement: inheritance of namespaces.
  * 
  * My first attempt was to extend the original SimpleXMLElement class, but 
@@ -26,9 +26,9 @@
  *     echo trim((string)$b[0]);
  *
  * Since namespaces are not inherited, we have to register them over and over again.
- * Using CustomXMLElement instead;
+ * Using QuiteSimpleXMLElement instead;
  *
- *     $root = new CustomXMLElement($xml);
+ *     $root = new QuiteSimpleXMLElement($xml);
  *     $root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
  *     $a = $root->xpath('d:a');
  *     $b = $a->xpath('d:b');
@@ -37,7 +37,7 @@
  * And while we're at it, we can add a few convenience methods...
  */
 
-namespace Danmichaelo\CustomXMLElement;
+namespace Danmichaelo\QuiteSimpleXMLElement;
 
 class InvalidXMLException extends \Exception
 {
@@ -48,7 +48,7 @@ class InvalidXMLException extends \Exception
 
 }
 
-class CustomXMLElement {
+class QuiteSimpleXMLElement {
 
     public $namespaces;
     public $el;
@@ -68,13 +68,13 @@ class CustomXMLElement {
                 throw new InvalidXMLException("Invalid XML encountered: " . $elem);
             }
         } else if (gettype($elem) == 'object') {
-            if (in_array(get_class($elem), array('Danmichaelo\CustomXMLElement\CustomXMLElement', 'SimpleXMLElement'))) {
+            if (in_array(get_class($elem), array('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', 'SimpleXMLElement'))) {
                 $this->el = $elem; // assume it's a SimpleXMLElement
             } else {
-                throw new \InvalidArgumentException('Unknown object given to CustomXMLElement. Expected SimpleXMLElement or CustomXMLElement.');
+                throw new \InvalidArgumentException('Unknown object given to QuiteSimpleXMLElement. Expected SimpleXMLElement or QuiteSimpleXMLElement.');
             }
         } else {
-            throw new \InvalidArgumentException('CustomXMLElement expects a string or a CustomXMLElement/SimpleXMLElement object.');
+            throw new \InvalidArgumentException('QuiteSimpleXMLElement expects a string or a QuiteSimpleXMLElement/SimpleXMLElement object.');
         }
 
         if ($inherit_from != null) {
@@ -122,7 +122,7 @@ class CustomXMLElement {
         if ($r === false) return false;
         $r2 = array();
         foreach ($r as $i) {
-            $r2[] = new CustomXMLElement($i, $this);
+            $r2[] = new QuiteSimpleXMLElement($i, $this);
         }
         return $r2;
     }

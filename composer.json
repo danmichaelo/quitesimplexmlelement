@@ -1,6 +1,6 @@
 {
-    "name": "danmichaelo/customxmlelement",
-    "description": "Simple wrapper around SimpleXmlElement for easier namespace handling",
+    "name": "danmichaelo/quitesimplexmlelement",
+    "description": "QuiteSimpleXMLElement, formerly known as CustomXMLElement, is a simple wrapper around SimpleXmlElement for easier namespace handling",
     "keywords": ["xml"],
     "authors": [
         {
@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Danmichaelo\\CustomXMLElement": "src/"
+            "Danmichaelo\\QuiteSimpleXMLElement": "src/"
         }
     },
     "minimum-stability": "dev"

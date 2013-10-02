@@ -1,6 +1,6 @@
-<?php namespace Danmichaelo\CustomXMLElement;
+<?php namespace Danmichaelo\QuiteSimpleXMLElement;
 
-class CustomXMLElementTest extends \PHPUnit_Framework_TestCase {
+class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase {
 	
 	public function testExampleXmlWithNamespace() {
 		$xml = '
@@ -38,17 +38,17 @@ class CustomXMLElementTest extends \PHPUnit_Framework_TestCase {
 	 	        </ns1:Ext>
 	 	     </ns1:CheckOutItemResponse>
 	 	  </ns1:NCIPMessage>';
-		$dom = new CustomXMLElement($xml);
+		$dom = new QuiteSimpleXMLElement($xml);
 		$ns = array('n' => 'http://www.niso.org/2008/ncip');
 		$dom->registerXPathNamespaces($ns);
 
-		$this->assertInstanceOf('Danmichaelo\CustomXMLElement\CustomXMLElement', $dom);
+		$this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $dom);
 		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->text('/n:NCIPMessage/n:CheckOutItemResponse/n:DateDue'));
 		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->first('/n:NCIPMessage/n:CheckOutItemResponse')->text('n:DateDue'));
 		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->text('//n:DateDue'));
 
-		// xpath should return a CustomXMLElement element
-		$this->assertInstanceOf('Danmichaelo\CustomXMLElement\CustomXMLElement', $dom->first('/n:NCIPMessage'));
+		// xpath should return a QuiteSimpleXMLElement element
+		$this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $dom->first('/n:NCIPMessage'));
 
 		// and we should get the SimpleXMLElement from el()
 		$this->assertInstanceOf('SimpleXMLElement', $dom->first('/n:NCIPMessage')->el());
@@ -62,47 +62,47 @@ class CustomXMLElementTest extends \PHPUnit_Framework_TestCase {
 	 	        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>	 	       
 	 	     </ns1:CheckOutItemResponse>
 	 	  </ns1:NCIPMessage>';
-		$dom = new CustomXMLElement($xml);
+		$dom = new QuiteSimpleXMLElement($xml);
 
-		$this->assertInstanceOf('Danmichaelo\CustomXMLElement\CustomXMLElement', $dom);
+		$this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $dom);
 		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->text('/ns1:NCIPMessage/ns1:CheckOutItemResponse/ns1:DateDue'));
 	}
 	
 	/**
-	 * @expectedException Danmichaelo\CustomXMLElement\InvalidXMLException
+	 * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
 	 */
 	public function testParseErrorneousXML() {
 		$xml = '<ns1:NCI';
-		new CustomXMLElement($xml);
+		new QuiteSimpleXMLElement($xml);
 	}
 
 	/**
-	 * @expectedException Danmichaelo\CustomXMLElement\InvalidXMLException
+	 * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
 	 */
 	public function testParseEmptyXML() {
 		$xml = '';
-		new CustomXMLElement($xml);
+		new QuiteSimpleXMLElement($xml);
 	}
 
 	/**
 	 * @expectedException InvalidArgumentException
 	 */
 	public function testArgumentIsNull() {
-		$dom = new CustomXMLElement(null);
+		$dom = new QuiteSimpleXMLElement(null);
 	}
 
 	/**
 	 * @expectedException InvalidArgumentException
 	 */
 	public function testArgumentOfUnknownType() {
-		$dom = new CustomXMLElement(2.0);
+		$dom = new QuiteSimpleXMLElement(2.0);
 	}
 
 	/**
 	 * @expectedException InvalidArgumentException
 	 */
 	public function testArgumentOfUnknownClass() {
-		$dom = new CustomXMLElement(new \DateTime);
+		$dom = new QuiteSimpleXMLElement(new \DateTime);
 	}
 
 }
