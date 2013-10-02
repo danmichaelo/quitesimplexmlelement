@@ -110,7 +110,7 @@ class CustomXMLElement {
         $x = $this->xpath($path);
         return (count($x) === 0) 
             ? false 
-            : new CustomXMLElement($x[0], $this);
+            : $x[0];
     }
 
     function el() {

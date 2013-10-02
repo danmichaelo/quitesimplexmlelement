@@ -47,6 +47,12 @@ class CustomXMLElementTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->first('/n:NCIPMessage/n:CheckOutItemResponse')->text('n:DateDue'));
 		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->text('//n:DateDue'));
 
+		// xpath should return a CustomXMLElement element
+		$this->assertInstanceOf('Danmichaelo\CustomXMLElement\CustomXMLElement', $dom->first('/n:NCIPMessage'));
+
+		// and we should get the SimpleXMLElement from el()
+		$this->assertInstanceOf('SimpleXMLElement', $dom->first('/n:NCIPMessage')->el());
+
 	}
 
 	public function testExampleXmlWithDefaultNamespacePrefix() {
