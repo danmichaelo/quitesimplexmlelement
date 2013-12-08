@@ -12,35 +12,43 @@ method inherit namespaces from the original object.
 
 Taking an example document,
 
-    $xml = '<root xmlns:dc="http://purl.org/dc/elements/1.1/">
-        <dc:a>
-          <dc:b >
-            1.9
-          </dc:a>
-        </dc:b>
-      </root>';
+```php
+$xml = '<root xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:a>
+      <dc:b >
+        1.9
+      </dc:a>
+    </dc:b>
+  </root>';
+```
 
 Using SimpleXMLElement I found myself having to register namespaces over and over again:
 
-    $root = new SimpleXMLElement($xml);
-    $root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
-    $a = $root->xpath('d:a');
-    $a[0]->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
-    $b = $a[0]->xpath('d:b');
-    echo trim((string)$b[0]);
+```php
+$root = new SimpleXMLElement($xml);
+$root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
+$a = $root->xpath('d:a');
+$a[0]->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
+$b = $a[0]->xpath('d:b');
+echo trim((string)$b[0]);
+```
 
 QuiteSimpleXMLElement allows for slightly less typing:
 
-    $root = new QuiteSimpleXMLElement($xml);
-    $root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
-    $a = $root->xpath('d:a');
-    $b = $a->xpath('d:b');
-    echo trim((string)$b[0]);
+```php
+$root = new QuiteSimpleXMLElement($xml);
+$root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
+$a = $root->xpath('d:a');
+$b = $a->xpath('d:b');
+echo trim((string)$b[0]);
+```
 
 A note on the design: I would have preferred to extend the original SimpleXMLElement class, but the constructor is static, which is why I wrote a wrapper instead.
 
 There's also a few new convenience methods added, such as `text()`.
 
-    $root = new QuiteSimpleXMLElement($xml);
-    $root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
-    echo $root->text('d:a/d:b');
+```php
+$root = new QuiteSimpleXMLElement($xml);
+$root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
+echo $root->text('d:a/d:b');
+```
