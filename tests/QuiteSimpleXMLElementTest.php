@@ -57,17 +57,60 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase {
 
 	public function testExampleXmlWithDefaultNamespacePrefix() {
 		$xml = '
-	 	  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
-	 	     <ns1:CheckOutItemResponse>
-	 	        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>	 	       
-	 	     </ns1:CheckOutItemResponse>
-	 	  </ns1:NCIPMessage>';
+		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
+		     <ns1:CheckOutItemResponse>
+		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
+		     </ns1:CheckOutItemResponse>
+		  </ns1:NCIPMessage>';
 		$dom = new QuiteSimpleXMLElement($xml);
 
 		$this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $dom);
 		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->text('/ns1:NCIPMessage/ns1:CheckOutItemResponse/ns1:DateDue'));
 	}
-	
+
+	public function testAsXML() {
+		$xml = '
+		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
+		     <ns1:CheckOutItemResponse>
+		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
+		     </ns1:CheckOutItemResponse>
+		  </ns1:NCIPMessage>';
+		$dom = new QuiteSimpleXMLElement($xml);
+
+		$this->assertXmlStringEqualsXmlString($xml, $dom->asXML());
+	}
+
+	public function testChildCount() {
+		$xml = '
+		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
+		     <ns1:CheckOutItemResponse>
+		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
+		     </ns1:CheckOutItemResponse>
+		  </ns1:NCIPMessage>';
+		$dom = new QuiteSimpleXMLElement($xml);
+		$node1 = $dom->first('/ns1:NCIPMessage');
+		$node2 = $dom->first('/ns1:NCIPMessage/ns1:CheckOutItemResponse/ns1:DateDue');
+		$this->assertEquals(1, $node1->count('ns1'));
+		$this->assertEquals(0, $node2->count('ns1'));
+	}
+
+	public function testChildCountWithRegisteredNamespaces() {
+		$xml = '
+	 	  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
+	 	     <ns1:CheckOutItemResponse>
+	 	        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
+	 	     </ns1:CheckOutItemResponse>
+	 	  </ns1:NCIPMessage>';
+		$dom = new QuiteSimpleXMLElement($xml);
+		$ns = array('n' => 'http://www.niso.org/2008/ncip');
+		$dom->registerXPathNamespaces($ns);
+
+		$node1 = $dom->first('/n:NCIPMessage');
+		$node2 = $dom->first('/n:NCIPMessage/n:CheckOutItemResponse/n:DateDue');
+		$this->assertEquals(1, $node1->count('n'));
+		$this->assertEquals(0, $node2->count('n'));
+	}
+
 	/**
 	 * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
 	 */

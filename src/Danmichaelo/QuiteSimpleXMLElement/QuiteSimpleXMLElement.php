@@ -138,11 +138,15 @@ class QuiteSimpleXMLElement {
        can take namespace prefix as argument, but doesn't use the document's prefixes,
        not the registered ones.
     */
-    function children($ns) {
-        return $this->el->children($this->namespaces[$ns]);
+    function children($ns = null) {
+        return $ns
+            ? $this->el->children($this->namespaces[$ns])
+            : $this->el->children();
     }
-    function count($ns) {
-        return count($this->el->children($this->namespaces[$ns]));
+    function count($ns = null) {
+        return $ns
+            ? count($this->el->children($this->namespaces[$ns]))
+            : count($this->el->children());
     }
 
     function attributes() { return $this->el->attributes(); }
