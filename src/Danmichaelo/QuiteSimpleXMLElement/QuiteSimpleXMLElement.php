@@ -81,6 +81,8 @@ class QuiteSimpleXMLElement {
             foreach ($inherit_from->namespaces as $prefix => $uri) {
                 $this->registerXPathNamespace($prefix, $uri);
             }
+        } else {
+            $this->namespaces = $this->el->getNamespaces(true);
         }
 
     }
@@ -131,7 +133,19 @@ class QuiteSimpleXMLElement {
         return (string)$this->el;
     }
 
-    function children() { return $this->el->children(); }
+    /* The original children and count methods are quite flawed. The count() method
+       only return the count of children with no namespace. The children() method
+       can take namespace prefix as argument, but doesn't use the document's prefixes,
+       not the registered ones.
+    */
+    function children($ns) {
+        return $this->el->children($this->namespaces[$ns]);
+    }
+    function count($ns) {
+        return count($this->el->children($this->namespaces[$ns]));
+    }
+
     function attributes() { return $this->el->attributes(); }
+    function asXML() { return $this->el->asXML(); }
 
 }
