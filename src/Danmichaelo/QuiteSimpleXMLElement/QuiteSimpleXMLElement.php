@@ -163,5 +163,7 @@ class QuiteSimpleXMLElement {
 
     function attributes() { return $this->el->attributes(); }
     function asXML() { return $this->el->asXML(); }
+    function getName() { return $this->el->getName(); }
+    function getNamespaces($recursive = false) { return $this->el->getNamespaces($recursive); }
 
 }

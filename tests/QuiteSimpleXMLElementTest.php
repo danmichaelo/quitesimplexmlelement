@@ -80,6 +80,32 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase {
 		$this->assertXmlStringEqualsXmlString($xml, $dom->asXML());
 	}
 
+	public function testGetName() {
+		$xml = '
+		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
+		     <ns1:CheckOutItemResponse>
+		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
+		     </ns1:CheckOutItemResponse>
+		  </ns1:NCIPMessage>';
+		$root = new QuiteSimpleXMLElement($xml);
+		$node = $root->first('/ns1:NCIPMessage/ns1:CheckOutItemResponse');
+
+		$this->assertEquals('NCIPMessage', $root->getName());
+		$this->assertEquals('CheckOutItemResponse', $node->getName());
+	}
+
+	public function testGetNamespaces() {
+		$xml = '
+		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
+		     <ns1:CheckOutItemResponse>
+		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
+		     </ns1:CheckOutItemResponse>
+		  </ns1:NCIPMessage>';
+		$root = new QuiteSimpleXMLElement($xml);
+
+		$this->assertEquals(array('ns1' => 'http://www.niso.org/2008/ncip'), $root->getNamespaces());
+	}
+
 	public function testChildCount() {
 		$xml = '
 		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
