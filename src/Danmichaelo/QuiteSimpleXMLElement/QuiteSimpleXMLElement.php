@@ -134,14 +134,26 @@ class QuiteSimpleXMLElement {
     }
 
     /* The original children and count methods are quite flawed. The count() method
-       only return the count of children with no namespace. The children() method
+       only return the count of children _with no namespace_. The children() method
        can take namespace prefix as argument, but doesn't use the document's prefixes,
        not the registered ones.
+
+       And it returns a "pseudo array" instead of a real iterator... making it quite hard
+       to work with, there's no next() method for instance...
+       We're returning a real array instead, even though that might not be what you want
+       in _all_ situations.
+
+       An alternative could be to use xpath('child::node()')
     */
     function children($ns = null) {
-        return $ns
+        $ch = $ns
             ? $this->el->children($this->namespaces[$ns])
             : $this->el->children();
+        $o = array();
+        foreach ($ch as $c) {
+            $o[] = new QuiteSimpleXMLElement($c, $this);
+        }
+        return $o;
     }
     function count($ns = null) {
         return $ns

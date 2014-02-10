@@ -111,6 +111,24 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(0, $node2->count('n'));
 	}
 
+	public function testChildren() {
+		$xml = '
+		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
+		     <ns1:CheckOutItemResponse>
+		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
+		     </ns1:CheckOutItemResponse>
+		  </ns1:NCIPMessage>';
+		$root = new QuiteSimpleXMLElement($xml);
+		$node1 = $root->first('/ns1:NCIPMessage');
+		$kids = $node1->children('ns1');
+
+		$this->assertCount(1, $kids);
+		$kiddo = $kids[0];
+		$this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $kiddo);
+		$this->assertEquals('CheckOutItemResponse', $kiddo->getName());
+		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $kiddo->text('ns1:DateDue'));
+	}
+
 	/**
 	 * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
 	 */
