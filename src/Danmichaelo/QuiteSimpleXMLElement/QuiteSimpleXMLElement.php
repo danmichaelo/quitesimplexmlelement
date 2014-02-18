@@ -99,7 +99,7 @@ class QuiteSimpleXMLElement {
         }
     }
 
-    function text($path) {
+    function text($path = '.') {
         # Convenience method 
         $r = $this->el->xpath($path);
         if ($r === false) return '';    // in case of an error
