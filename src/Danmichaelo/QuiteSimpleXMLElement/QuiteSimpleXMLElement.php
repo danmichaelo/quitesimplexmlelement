@@ -107,6 +107,13 @@ class QuiteSimpleXMLElement {
         return trim((string) $r[0]);
     }
 
+    /*
+     * Convenience method for getting an attribute of a node
+     */
+    function attr($attribute) {
+        return trim((string) $this->el->attributes()->{$attribute});
+    }
+
     function first($path) {
         # Convenience method 
         $x = $this->xpath($path);
