@@ -3,6 +3,7 @@ QuiteSimpleXMLElement
 
 [![Build Status](https://travis-ci.org/danmichaelo/quitesimplexmlelement.png?branch=master)](https://travis-ci.org/danmichaelo/quitesimplexmlelement)
 [![Coverage Status](https://coveralls.io/repos/danmichaelo/quitesimplexmlelement/badge.png?branch=master)](https://coveralls.io/r/danmichaelo/quitesimplexmlelement?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/danmichaelo/quitesimplexmlelement/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/danmichaelo/quitesimplexmlelement/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/danmichaelo/quitesimplexmlelement/version.png)](https://packagist.org/packages/danmichaelo/quitesimplexmlelement)
 [![Total Downloads](https://poser.pugx.org/danmichaelo/quitesimplexmlelement/downloads.png)](https://packagist.org/packages/danmichaelo/quitesimplexmlelement)
 
