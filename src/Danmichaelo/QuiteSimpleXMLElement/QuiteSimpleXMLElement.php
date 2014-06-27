@@ -122,6 +122,16 @@ class QuiteSimpleXMLElement {
             : $x[0];
     }
 
+    /*
+     * Convenience method for checking if a node exists
+     */
+    function has($path) {
+        $x = $this->xpath($path);
+        return (count($x) === 0)
+            ? false
+            : true;
+    }
+
     function el() {
         return $this->el;
     }

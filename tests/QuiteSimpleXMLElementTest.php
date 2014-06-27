@@ -127,6 +127,26 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('Test', $root->text('/sear:SEGMENTS/sear:FACETLIST/sear:FACET'));
 	}
 
+	public function testHas() {
+		$xml = '
+			<sear:SEGMENTS xmlns:sear="http://www.exlibrisgroup.com/xsd/jaguar/search">
+				<sear:FACETLIST ACCURATE_COUNTERS="true">
+					<sear:FACET NAME="creator" COUNT="200">
+						Test
+					</sear:FACET>
+				</sear:FACETLIST>
+			</sear:SEGMENTS>';
+		$root = new QuiteSimpleXMLElement($xml);
+		$node1 = $root->first('/sear:SEGMENTS/sear:FACETLIST');
+		$node2 = $root->first('/sear:SEGMENTS');
+
+		$this->assertTrue($node1->has('sear:FACET'));
+		$this->assertFalse($node1->has('sear:OCTET'));
+		$this->assertTrue($node2->has('sear:FACETLIST'));
+		$this->assertTrue($node2->has('sear:FACETLIST/sear:FACET'));
+		$this->assertFalse($node2->has('sear:NA/sear:NA'));
+	}
+
 
 	public function testGetNamespaces() {
 		$xml = '
