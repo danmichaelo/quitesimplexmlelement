@@ -46,10 +46,50 @@ echo trim((string)$b[0]);
 
 A note on the design: I would have preferred to extend the original SimpleXMLElement class, but the constructor is static, which is why I wrote a wrapper instead.
 
-There's also a few new convenience methods added, such as `text()`.
+### Convenience methods
+
+The library defines some new methods to support less typing and cleaner code.
+
+#### attr($name)
+
+Returns the value of an attribute as a string
 
 ```php
-$root = new QuiteSimpleXMLElement($xml);
-$root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
-echo $root->text('d:a/d:b');
+echo $node->attr('id');
+```
+
+#### text($xpath)
+
+Returns the text content of the node
+
+```php
+echo $node->text('d:a/d:b');
+```
+
+#### first($xpath)
+
+Returns the first node that matches the given path, or null if none.
+
+```php
+$node = $node->first('d:a/d:b');
+```
+
+#### has($xpath)
+
+Returns true if the node exists, false if not
+
+```php
+if ($node->has('d:a/d:b') {
+	…
+}
+```
+
+#### count($namespace=null)
+
+Returns the number of child nodes, optionally within a given namespace.
+
+```php
+if ($node->count('d') > 0) {
+  …
+}
 ```
