@@ -1,9 +1,10 @@
 <?php namespace Danmichaelo\QuiteSimpleXMLElement;
 
-class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase {
-	
-	public function testExampleXmlWithNamespace() {
-		$xml = '
+class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
+{
+    public function testExampleXmlWithNamespace()
+    {
+        $xml = '
 	 	  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
 	 	     <ns1:CheckOutItemResponse>
 	 	        <ns1:ItemId>
@@ -38,64 +39,68 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase {
 	 	        </ns1:Ext>
 	 	     </ns1:CheckOutItemResponse>
 	 	  </ns1:NCIPMessage>';
-		$dom = new QuiteSimpleXMLElement($xml);
-		$ns = array('n' => 'http://www.niso.org/2008/ncip');
-		$dom->registerXPathNamespaces($ns);
+        $dom = new QuiteSimpleXMLElement($xml);
+        $ns = array('n' => 'http://www.niso.org/2008/ncip');
+        $dom->registerXPathNamespaces($ns);
 
-		$this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $dom);
-		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->text('/n:NCIPMessage/n:CheckOutItemResponse/n:DateDue'));
-		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->first('/n:NCIPMessage/n:CheckOutItemResponse')->text('n:DateDue'));
-		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->text('//n:DateDue'));
+        $this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $dom);
+        $this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->text('/n:NCIPMessage/n:CheckOutItemResponse/n:DateDue'));
+        $this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->first('/n:NCIPMessage/n:CheckOutItemResponse')->text('n:DateDue'));
+        $this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->text('//n:DateDue'));
 
-		// xpath should return a QuiteSimpleXMLElement element
-		$this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $dom->first('/n:NCIPMessage'));
+        // xpath should return a QuiteSimpleXMLElement element
+        $this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $dom->first('/n:NCIPMessage'));
 
-		// and we should get the SimpleXMLElement from el()
-		$this->assertInstanceOf('SimpleXMLElement', $dom->first('/n:NCIPMessage')->el());
+        // and we should get the SimpleXMLElement from el()
+        $this->assertInstanceOf('SimpleXMLElement', $dom->first('/n:NCIPMessage')->el());
 
-	}
+    }
 
-	public function testExampleXmlWithDefaultNamespacePrefix() {
-		$xml = '
+    public function testExampleXmlWithDefaultNamespacePrefix()
+    {
+        $xml = '
 		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
 		     <ns1:CheckOutItemResponse>
 		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
 		     </ns1:CheckOutItemResponse>
 		  </ns1:NCIPMessage>';
-		$dom = new QuiteSimpleXMLElement($xml);
+        $dom = new QuiteSimpleXMLElement($xml);
 
-		$this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $dom);
-		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->text('/ns1:NCIPMessage/ns1:CheckOutItemResponse/ns1:DateDue'));
-	}
+        $this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $dom);
+        $this->assertEquals('2013-09-21T18:54:39.718+02:00', $dom->text('/ns1:NCIPMessage/ns1:CheckOutItemResponse/ns1:DateDue'));
+    }
 
-	public function testAsXML() {
-		$xml = '
+    public function testAsXML()
+    {
+        $xml = '
 		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
 		     <ns1:CheckOutItemResponse>
 		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
 		     </ns1:CheckOutItemResponse>
 		  </ns1:NCIPMessage>';
-		$dom = new QuiteSimpleXMLElement($xml);
+        $dom = new QuiteSimpleXMLElement($xml);
 
-		$this->assertXmlStringEqualsXmlString($xml, $dom->asXML());
-	}
+        $this->assertXmlStringEqualsXmlString($xml, $dom->asXML());
+    }
 
-	public function testGetName() {
-		$xml = '
+    public function testGetName()
+    {
+        $xml = '
 		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
 		     <ns1:CheckOutItemResponse>
 		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
 		     </ns1:CheckOutItemResponse>
 		  </ns1:NCIPMessage>';
-		$root = new QuiteSimpleXMLElement($xml);
-		$node = $root->first('/ns1:NCIPMessage/ns1:CheckOutItemResponse');
+        $root = new QuiteSimpleXMLElement($xml);
+        $node = $root->first('/ns1:NCIPMessage/ns1:CheckOutItemResponse');
 
-		$this->assertEquals('NCIPMessage', $root->getName());
-		$this->assertEquals('CheckOutItemResponse', $node->getName());
-	}
+        $this->assertEquals('NCIPMessage', $root->getName());
+        $this->assertEquals('CheckOutItemResponse', $node->getName());
+    }
 
-	public function testAttr() {
-		$xml = '
+    public function testAttr()
+    {
+        $xml = '
 			<sear:SEGMENTS xmlns:sear="http://www.exlibrisgroup.com/xsd/jaguar/search">
 				<sear:FACETLIST ACCURATE_COUNTERS="true">
 					<sear:FACET NAME="creator" COUNT="200">
@@ -103,16 +108,17 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase {
 					</sear:FACET>
 				</sear:FACETLIST>
 			</sear:SEGMENTS>';
-		$root = new QuiteSimpleXMLElement($xml);
-		$node = $root->first('/sear:SEGMENTS/sear:FACETLIST/sear:FACET');
+        $root = new QuiteSimpleXMLElement($xml);
+        $node = $root->first('/sear:SEGMENTS/sear:FACETLIST/sear:FACET');
 
-		$this->assertEquals('creator', $node->attr('NAME'));
-		$this->assertEquals('200', $node->attr('COUNT'));
-		$this->assertEquals('', $node->attr('SOMEETHING_ELSE'));
-	}
+        $this->assertEquals('creator', $node->attr('NAME'));
+        $this->assertEquals('200', $node->attr('COUNT'));
+        $this->assertEquals('', $node->attr('SOMEETHING_ELSE'));
+    }
 
-	public function testText() {
-		$xml = '
+    public function testText()
+    {
+        $xml = '
 			<sear:SEGMENTS xmlns:sear="http://www.exlibrisgroup.com/xsd/jaguar/search">
 				<sear:FACETLIST ACCURATE_COUNTERS="true">
 					<sear:FACET NAME="creator" COUNT="200">
@@ -120,15 +126,16 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase {
 					</sear:FACET>
 				</sear:FACETLIST>
 			</sear:SEGMENTS>';
-		$root = new QuiteSimpleXMLElement($xml);
-		$node = $root->first('/sear:SEGMENTS/sear:FACETLIST/sear:FACET');
+        $root = new QuiteSimpleXMLElement($xml);
+        $node = $root->first('/sear:SEGMENTS/sear:FACETLIST/sear:FACET');
 
-		$this->assertEquals('Test', $node->text());
-		$this->assertEquals('Test', $root->text('/sear:SEGMENTS/sear:FACETLIST/sear:FACET'));
-	}
+        $this->assertEquals('Test', $node->text());
+        $this->assertEquals('Test', $root->text('/sear:SEGMENTS/sear:FACETLIST/sear:FACET'));
+    }
 
-	public function testHas() {
-		$xml = '
+    public function testHas()
+    {
+        $xml = '
 			<sear:SEGMENTS xmlns:sear="http://www.exlibrisgroup.com/xsd/jaguar/search">
 				<sear:FACETLIST ACCURATE_COUNTERS="true">
 					<sear:FACET NAME="creator" COUNT="200">
@@ -136,114 +143,122 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase {
 					</sear:FACET>
 				</sear:FACETLIST>
 			</sear:SEGMENTS>';
-		$root = new QuiteSimpleXMLElement($xml);
-		$node1 = $root->first('/sear:SEGMENTS/sear:FACETLIST');
-		$node2 = $root->first('/sear:SEGMENTS');
+        $root = new QuiteSimpleXMLElement($xml);
+        $node1 = $root->first('/sear:SEGMENTS/sear:FACETLIST');
+        $node2 = $root->first('/sear:SEGMENTS');
 
-		$this->assertTrue($node1->has('sear:FACET'));
-		$this->assertFalse($node1->has('sear:OCTET'));
-		$this->assertTrue($node2->has('sear:FACETLIST'));
-		$this->assertTrue($node2->has('sear:FACETLIST/sear:FACET'));
-		$this->assertFalse($node2->has('sear:NA/sear:NA'));
-	}
+        $this->assertTrue($node1->has('sear:FACET'));
+        $this->assertFalse($node1->has('sear:OCTET'));
+        $this->assertTrue($node2->has('sear:FACETLIST'));
+        $this->assertTrue($node2->has('sear:FACETLIST/sear:FACET'));
+        $this->assertFalse($node2->has('sear:NA/sear:NA'));
+    }
 
-
-	public function testGetNamespaces() {
-		$xml = '
+    public function testGetNamespaces()
+    {
+        $xml = '
 		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
 		     <ns1:CheckOutItemResponse>
 		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
 		     </ns1:CheckOutItemResponse>
 		  </ns1:NCIPMessage>';
-		$root = new QuiteSimpleXMLElement($xml);
+        $root = new QuiteSimpleXMLElement($xml);
 
-		$this->assertEquals(array('ns1' => 'http://www.niso.org/2008/ncip'), $root->getNamespaces());
-	}
+        $this->assertEquals(array('ns1' => 'http://www.niso.org/2008/ncip'), $root->getNamespaces());
+    }
 
-	public function testChildCount() {
-		$xml = '
+    public function testChildCount()
+    {
+        $xml = '
 		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
 		     <ns1:CheckOutItemResponse>
 		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
 		     </ns1:CheckOutItemResponse>
 		  </ns1:NCIPMessage>';
-		$dom = new QuiteSimpleXMLElement($xml);
-		$node1 = $dom->first('/ns1:NCIPMessage');
-		$node2 = $dom->first('/ns1:NCIPMessage/ns1:CheckOutItemResponse/ns1:DateDue');
-		$this->assertEquals(1, $node1->count('ns1'));
-		$this->assertEquals(0, $node2->count('ns1'));
-	}
+        $dom = new QuiteSimpleXMLElement($xml);
+        $node1 = $dom->first('/ns1:NCIPMessage');
+        $node2 = $dom->first('/ns1:NCIPMessage/ns1:CheckOutItemResponse/ns1:DateDue');
+        $this->assertEquals(1, $node1->count('ns1'));
+        $this->assertEquals(0, $node2->count('ns1'));
+    }
 
-	public function testChildCountWithRegisteredNamespaces() {
-		$xml = '
+    public function testChildCountWithRegisteredNamespaces()
+    {
+        $xml = '
 	 	  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
 	 	     <ns1:CheckOutItemResponse>
 	 	        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
 	 	     </ns1:CheckOutItemResponse>
 	 	  </ns1:NCIPMessage>';
-		$dom = new QuiteSimpleXMLElement($xml);
-		$ns = array('n' => 'http://www.niso.org/2008/ncip');
-		$dom->registerXPathNamespaces($ns);
+        $dom = new QuiteSimpleXMLElement($xml);
+        $ns = array('n' => 'http://www.niso.org/2008/ncip');
+        $dom->registerXPathNamespaces($ns);
 
-		$node1 = $dom->first('/n:NCIPMessage');
-		$node2 = $dom->first('/n:NCIPMessage/n:CheckOutItemResponse/n:DateDue');
-		$this->assertEquals(1, $node1->count('n'));
-		$this->assertEquals(0, $node2->count('n'));
-	}
+        $node1 = $dom->first('/n:NCIPMessage');
+        $node2 = $dom->first('/n:NCIPMessage/n:CheckOutItemResponse/n:DateDue');
+        $this->assertEquals(1, $node1->count('n'));
+        $this->assertEquals(0, $node2->count('n'));
+    }
 
-	public function testChildren() {
-		$xml = '
+    public function testChildren()
+    {
+        $xml = '
 		  <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
 		     <ns1:CheckOutItemResponse>
 		        <ns1:DateDue>2013-09-21T18:54:39.718+02:00</ns1:DateDue>
 		     </ns1:CheckOutItemResponse>
 		  </ns1:NCIPMessage>';
-		$root = new QuiteSimpleXMLElement($xml);
-		$node1 = $root->first('/ns1:NCIPMessage');
-		$kids = $node1->children('ns1');
+        $root = new QuiteSimpleXMLElement($xml);
+        $node1 = $root->first('/ns1:NCIPMessage');
+        $kids = $node1->children('ns1');
 
-		$this->assertCount(1, $kids);
-		$kiddo = $kids[0];
-		$this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $kiddo);
-		$this->assertEquals('CheckOutItemResponse', $kiddo->getName());
-		$this->assertEquals('2013-09-21T18:54:39.718+02:00', $kiddo->text('ns1:DateDue'));
-	}
+        $this->assertCount(1, $kids);
+        $kiddo = $kids[0];
+        $this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $kiddo);
+        $this->assertEquals('CheckOutItemResponse', $kiddo->getName());
+        $this->assertEquals('2013-09-21T18:54:39.718+02:00', $kiddo->text('ns1:DateDue'));
+    }
 
-	/**
+    /**
 	 * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
 	 */
-	public function testParseErrorneousXML() {
-		$xml = '<ns1:NCI';
-		new QuiteSimpleXMLElement($xml);
-	}
+    public function testParseErrorneousXML()
+    {
+        $xml = '<ns1:NCI';
+        new QuiteSimpleXMLElement($xml);
+    }
 
-	/**
+    /**
 	 * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
 	 */
-	public function testParseEmptyXML() {
-		$xml = '';
-		new QuiteSimpleXMLElement($xml);
-	}
+    public function testParseEmptyXML()
+    {
+        $xml = '';
+        new QuiteSimpleXMLElement($xml);
+    }
 
-	/**
+    /**
 	 * @expectedException InvalidArgumentException
 	 */
-	public function testArgumentIsNull() {
-		$dom = new QuiteSimpleXMLElement(null);
-	}
+    public function testArgumentIsNull()
+    {
+        $dom = new QuiteSimpleXMLElement(null);
+    }
 
-	/**
+    /**
 	 * @expectedException InvalidArgumentException
 	 */
-	public function testArgumentOfUnknownType() {
-		$dom = new QuiteSimpleXMLElement(2.0);
-	}
+    public function testArgumentOfUnknownType()
+    {
+        $dom = new QuiteSimpleXMLElement(2.0);
+    }
 
-	/**
+    /**
 	 * @expectedException InvalidArgumentException
 	 */
-	public function testArgumentOfUnknownClass() {
-		$dom = new QuiteSimpleXMLElement(new \DateTime);
-	}
+    public function testArgumentOfUnknownClass()
+    {
+        $dom = new QuiteSimpleXMLElement(new \DateTime());
+    }
 
 }
