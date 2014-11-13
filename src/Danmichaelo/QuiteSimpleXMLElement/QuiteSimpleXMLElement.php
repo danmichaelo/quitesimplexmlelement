@@ -106,8 +106,17 @@ class QuiteSimpleXMLElement
     {
         # Convenience method
         $r = $this->el->xpath($path);
-        if ($r === false) return '';    // in case of an error
-        if (count($r) === 0) return ''; // no results
+
+        // in case of an error
+        if ($r === false) {
+            return '';
+        }
+
+        // no results
+        if (count($r) === 0) {
+            return '';
+        }
+
         return trim((string) $r[0]);
     }
 
@@ -124,9 +133,7 @@ class QuiteSimpleXMLElement
         # Convenience method
         $x = $this->xpath($path);
 
-        return (count($x) === 0)
-            ? false
-            : $x[0];
+        return (count($x) === 0) ? false : $x[0];
     }
 
     /*
@@ -136,9 +143,7 @@ class QuiteSimpleXMLElement
     {
         $x = $this->xpath($path);
 
-        return (count($x) === 0)
-            ? false
-            : true;
+        return (count($x) === 0) ? false : true;
     }
 
     public function el()
