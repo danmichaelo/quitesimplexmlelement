@@ -1,11 +1,11 @@
 <?php
-/* 
+/*
  * (c) Dan Michael O. Heggø (2013)
- * 
+ *
  * QuiteSimpleXMLElement is a wrapper around SimpleXMLElement to add a quite simple
  * feature not present in SimpleXMLElement: inheritance of namespaces.
- * 
- * My first attempt was to extend the original SimpleXMLElement class, but 
+ *
+ * My first attempt was to extend the original SimpleXMLElement class, but
  * unfortunately the constructor is static and cannot be overriden!
  *
  * It's easier to understand with a simple example:
@@ -33,7 +33,7 @@
  *     $a = $root->xpath('d:a');
  *     $b = $a->xpath('d:b');
  *     echo trim((string)$b[0]);
- * 
+ *
  * And while we're at it, we can add a few convenience methods...
  */
 
@@ -42,14 +42,15 @@ namespace Danmichaelo\QuiteSimpleXMLElement;
 class InvalidXMLException extends \Exception
 {
 
-    public function __construct($message = null, $code = 0, Exception $previous = null) {
+    public function __construct($message = null, $code = 0, Exception $previous = null)
+    {
         parent::__construct($message, $code, $previous);
     }
 
 }
 
-class QuiteSimpleXMLElement {
-
+class QuiteSimpleXMLElement
+{
     public $namespaces;
     public $el;
 
@@ -57,8 +58,8 @@ class QuiteSimpleXMLElement {
     # See https://github.com/draffter/FollowFunctionPHP/blob/master/_php/SimpleXML.php
     # for list of functions with arguments
     #
-    function __construct($elem, $inherit_from=null) {
-
+    public function __construct($elem, $inherit_from=null)
+    {
         $this->namespaces = array();
 
         if (gettype($elem) == 'string') {
@@ -67,7 +68,7 @@ class QuiteSimpleXMLElement {
             } catch (\Exception $e) {
                 throw new InvalidXMLException("Invalid XML encountered: " . $elem);
             }
-        } else if (gettype($elem) == 'object') {
+        } elseif (gettype($elem) == 'object') {
             if (in_array(get_class($elem), array('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', 'SimpleXMLElement'))) {
                 $this->el = $elem; // assume it's a SimpleXMLElement
             } else {
@@ -87,67 +88,88 @@ class QuiteSimpleXMLElement {
 
     }
 
-    function registerXPathNamespace($prefix, $uri) {
+    public function registerXPathNamespace($prefix, $uri)
+    {
         $this->el->registerXPathNamespace($prefix, $uri);
         $this->namespaces[$prefix] = $uri;
     }
 
-    function registerXPathNamespaces($namespaces) {
+    public function registerXPathNamespaces($namespaces)
+    {
         # Convenience method to add multiple namespaces at once
         foreach ($namespaces as $prefix => $uri) {
-            $this->registerXPathNamespace($prefix, $uri);            
+            $this->registerXPathNamespace($prefix, $uri);
         }
     }
 
-    function text($path = '.') {
-        # Convenience method 
+    public function text($path = '.')
+    {
+        # Convenience method
         $r = $this->el->xpath($path);
-        if ($r === false) return '';    // in case of an error
-        if (count($r) === 0) return ''; // no results
+
+        // in case of an error
+        if ($r === false) {
+            return '';
+        }
+
+        // no results
+        if (count($r) === 0) {
+            return '';
+        }
+
         return trim((string) $r[0]);
     }
 
     /*
      * Convenience method for getting an attribute of a node
      */
-    function attr($attribute) {
+    public function attr($attribute)
+    {
         return trim((string) $this->el->attributes()->{$attribute});
     }
 
-    function first($path) {
-        # Convenience method 
+    public function first($path)
+    {
+        # Convenience method
         $x = $this->xpath($path);
-        return (count($x) === 0) 
-            ? false 
-            : $x[0];
+
+        return (count($x) === 0) ? false : $x[0];
     }
 
     /*
      * Convenience method for checking if a node exists
      */
-    function has($path) {
+    public function has($path)
+    {
         $x = $this->xpath($path);
-        return (count($x) === 0)
-            ? false
-            : true;
+
+        return (count($x) === 0) ? false : true;
     }
 
-    function el() {
+    public function el()
+    {
         return $this->el;
     }
 
-    function xpath($path) {
+    /**
+     * @param $path
+     * @return array|bool|QuiteSimpleXMLElement[]
+     */
+    public function xpath($path)
+    {
         $r = $this->el->xpath($path);
         if ($r === false) return false;
         $r2 = array();
         foreach ($r as $i) {
             $r2[] = new QuiteSimpleXMLElement($i, $this);
         }
+
         return $r2;
     }
 
-    function __toString() {
-        return (string)$this->el;
+    public function __toString()
+    {
+        return (string) $this->el;
     }
 
     /* The original children and count methods are quite flawed. The count() method
@@ -162,7 +184,8 @@ class QuiteSimpleXMLElement {
 
        An alternative could be to use xpath('child::node()')
     */
-    function children($ns = null) {
+    public function children($ns = null)
+    {
         $ch = $ns
             ? $this->el->children($this->namespaces[$ns])
             : $this->el->children();
@@ -170,17 +193,19 @@ class QuiteSimpleXMLElement {
         foreach ($ch as $c) {
             $o[] = new QuiteSimpleXMLElement($c, $this);
         }
+
         return $o;
     }
-    function count($ns = null) {
+    public function count($ns = null)
+    {
         return $ns
             ? count($this->el->children($this->namespaces[$ns]))
             : count($this->el->children());
     }
 
-    function attributes() { return $this->el->attributes(); }
-    function asXML() { return $this->el->asXML(); }
-    function getName() { return $this->el->getName(); }
-    function getNamespaces($recursive = false) { return $this->el->getNamespaces($recursive); }
+    public function attributes() { return $this->el->attributes(); }
+    public function asXML() { return $this->el->asXML(); }
+    public function getName() { return $this->el->getName(); }
+    public function getNamespaces($recursive = false) { return $this->el->getNamespaces($recursive); }
 
 }
