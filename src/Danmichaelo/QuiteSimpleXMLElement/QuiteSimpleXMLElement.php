@@ -153,7 +153,7 @@ class QuiteSimpleXMLElement
 
     /**
      * @param $path
-     * @return array|bool|QuiteSimpleXMLElement[]
+     * @return bool|QuiteSimpleXMLElement[]
      */
     public function xpath($path)
     {
@@ -165,6 +165,18 @@ class QuiteSimpleXMLElement
         }
 
         return $r2;
+    }
+
+    /**
+     * Wrapper method for xpath() that *always* returns an array.
+     *
+     * @param $path
+     * @return QuiteSimpleXMLElement[]
+     */
+    public function all($path)
+    {
+        $r = $this->xpath($path);
+        return (!is_array($r)) ? array() : $r;
     }
 
     public function __toString()

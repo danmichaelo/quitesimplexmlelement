@@ -74,6 +74,14 @@ Returns the first node that matches the given path, or null if none.
 $node = $node->first('d:a/d:b');
 ```
 
+#### all($xpath)
+
+Returns all nodes that matches the given path, or an empty array if none.
+
+```php
+$node = $node->all('d:a/d:b');
+```
+
 #### has($xpath)
 
 Returns true if the node exists, false if not

@@ -219,6 +219,20 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2013-09-21T18:54:39.718+02:00', $kiddo->text('ns1:DateDue'));
     }
 
+    public function testAll()
+    {
+        $xml = '
+          <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
+             <ns1:Test>
+                Hello
+             </ns1:Test>
+          </ns1:NCIPMessage>';
+        $dom = new QuiteSimpleXMLElement($xml);
+
+        $this->assertCount(0, $dom->all('/Test[prop="val"]'));
+        $this->assertCount(1, $dom->all('/ns1:NCIPMessage/ns1:Test'));
+    }
+
     /**
 	 * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
 	 */
