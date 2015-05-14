@@ -220,4 +220,12 @@ class QuiteSimpleXMLElement
     public function getName() { return $this->el->getName(); }
     public function getNamespaces($recursive = false) { return $this->el->getNamespaces($recursive); }
 
+    /**
+     * Set the node value
+     */
+    public function setValue($value)
+    {
+        $r = $this->el[0] = $value;
+    }
+
 }

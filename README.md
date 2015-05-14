@@ -92,6 +92,14 @@ if ($node->has('d:a/d:b') {
 }
 ```
 
+#### setValue($value)
+
+Sets the value of a node
+
+```php
+$node->setValue('Hello world');
+```
+
 #### count($namespace=null)
 
 Returns the number of child nodes, optionally within a given namespace.
