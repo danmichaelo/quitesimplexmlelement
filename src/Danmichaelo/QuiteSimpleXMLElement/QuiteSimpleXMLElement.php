@@ -228,4 +228,21 @@ class QuiteSimpleXMLElement
         $r = $this->el[0] = $value;
     }
 
+    public function asDOMElement()
+    {
+        return dom_import_simplexml($this->el);
+    }
+
+    /**
+     * Replaces the current node. Thanks to @hakre
+     * <http://stackoverflow.com/questions/17661167/how-to-replace-xml-node-with-simplexmlelement-php>
+     */
+    public function replace(QuiteSimpleXMLElement $element) {
+        $oldNode = $this->asDOMElement();
+        $newNode = $oldNode->ownerDocument->importNode(
+            $element->asDOMElement(),
+            true
+        );
+        $oldNode->parentNode->replaceChild($newNode, $oldNode);
+    }
 }

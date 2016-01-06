@@ -109,3 +109,47 @@ if ($node->count('d') > 0) {
   …
 }
 ```
+
+#### replace($newNode)
+
+Replaces the current node with a new one. Example:
+
+```php
+$book = new QuiteSimpleXMLElement('
+<book>
+	<chapter>
+		<title>Chapter one</title>
+	</chapter>
+	<chapter>
+		<title>Chapter two</title>
+	</chapter>
+</book>
+');
+
+$introduction = new QuiteSimpleXMLElement('
+	<introduction>
+		<title>Introduction</title>
+	</introduction>
+');
+
+$firstChapter = $book->first('chapter');
+$firstChapter->replace($introduction);
+```
+
+gives
+
+```xml
+<?xml version="1.0"?>
+<book>
+    <introduction>
+        <title>Introduction</title>
+    </introduction>
+    <chapter>
+        <title>Chapter two</title>
+    </chapter>
+</book>
+```
+
+Works with namespaces as well, but any namespaces used in the replacement node
+must be specified in that document as well. See `QuiteSimpleXMLElementTest.php`
+for an example.

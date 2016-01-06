@@ -295,4 +295,32 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
         $dom = new QuiteSimpleXMLElement(new \DateTime());
     }
 
+    public function testReplace()
+    {
+        $xml = '
+          <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
+             <ns1:Test>
+                Hello
+             </ns1:Test>
+             <ns1:Test>
+                Hi
+             </ns1:Test>
+          </ns1:NCIPMessage>';
+        $expectedResult= '
+          <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
+             <ns1:Test2>Replaced</ns1:Test2>
+             <ns1:Test>
+                Hi
+             </ns1:Test>
+          </ns1:NCIPMessage>';
+        $el = new QuiteSimpleXMLElement($xml);
+        $node = $el->first('ns1:Test');
+
+        $new = new QuiteSimpleXMLElement('<ns1:Test2 xmlns:ns1="http://www.niso.org/2008/ncip">Replaced</ns1:Test2>');
+        $node->replace($new);
+
+        $this->assertXmlStringEqualsXmlString($expectedResult, $el->asXML());
+
+    }
+
 }
