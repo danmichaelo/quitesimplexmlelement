@@ -100,17 +100,17 @@ class QuiteSimpleXMLElement
         }
     }
 
-    public function text($path = '.')
+    /*
+     * Convenience method for getting the text of the first
+     * node matching an xpath. The text is trimmed by default,
+     * but setting the second argument to false will return
+     * the untrimmed text.
+     */
+    public function text($path = '.', $trim=true)
     {
-        # Convenience method
-        $r = $this->el->xpath($path);
+        $text = strval($this->first($path));
 
-        // no results
-        if (count($r) === 0) {
-            return '';
-        }
-
-        return trim((string) $r[0]);
+        return $trim ? trim($text) : $text;
     }
 
     /*
@@ -172,6 +172,9 @@ class QuiteSimpleXMLElement
         return (!is_array($r)) ? array() : $r;
     }
 
+    /**
+     * Returns the *untrimmed* text content of the node
+     */
     public function __toString()
     {
         return (string) $this->el;
