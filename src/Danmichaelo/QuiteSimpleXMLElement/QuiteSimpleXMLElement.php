@@ -232,7 +232,7 @@ class QuiteSimpleXMLElement
      */
     public function setValue($value)
     {
-        $r = $this->el[0] = $value;
+        $this->el[0] = $value;
     }
 
     public function asDOMElement()
