@@ -41,7 +41,6 @@ namespace Danmichaelo\QuiteSimpleXMLElement;
 
 class InvalidXMLException extends \Exception
 {
-
     public function __construct($message = null, $code = 0, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
@@ -53,22 +52,22 @@ class QuiteSimpleXMLElement
     public $namespaces;
     public $el;
 
-    #
-    # See https://github.com/draffter/FollowFunctionPHP/blob/master/_php/SimpleXML.php
-    # for list of functions with arguments
-    #
-    public function __construct($elem, $inherit_from=null)
+    //
+    // See https://github.com/draffter/FollowFunctionPHP/blob/master/_php/SimpleXML.php
+    // for list of functions with arguments
+    //
+    public function __construct($elem, $inherit_from = null)
     {
-        $this->namespaces = array();
+        $this->namespaces = [];
 
         if (gettype($elem) == 'string') {
             try {
                 $this->el = new \SimpleXMLElement($elem);
             } catch (\Exception $e) {
-                throw new InvalidXMLException("Invalid XML encountered: " . $elem);
+                throw new InvalidXMLException('Invalid XML encountered: ' . $elem);
             }
         } elseif (gettype($elem) == 'object') {
-            if (in_array(get_class($elem), array('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', 'SimpleXMLElement'))) {
+            if (in_array(get_class($elem), ['Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', 'SimpleXMLElement'])) {
                 $this->el = $elem; // assume it's a SimpleXMLElement
             } else {
                 throw new \InvalidArgumentException('Unknown object given to QuiteSimpleXMLElement. Expected SimpleXMLElement or QuiteSimpleXMLElement.');
@@ -94,7 +93,7 @@ class QuiteSimpleXMLElement
 
     public function registerXPathNamespaces($namespaces)
     {
-        # Convenience method to add multiple namespaces at once
+        // Convenience method to add multiple namespaces at once
         foreach ($namespaces as $prefix => $uri) {
             $this->registerXPathNamespace($prefix, $uri);
         }
@@ -106,7 +105,7 @@ class QuiteSimpleXMLElement
      * but setting the second argument to false will return
      * the untrimmed text.
      */
-    public function text($path = '.', $trim=true)
+    public function text($path = '.', $trim = true)
     {
         $text = strval($this->first($path));
 
@@ -123,7 +122,7 @@ class QuiteSimpleXMLElement
 
     public function first($path)
     {
-        # Convenience method
+        // Convenience method
         $x = $this->xpath($path);
 
         return count($x) ? $x[0] : null;
@@ -148,11 +147,12 @@ class QuiteSimpleXMLElement
      * Returns an array of QuiteSimpleXMLElement instances.
      *
      * @param $path
+     *
      * @return QuiteSimpleXMLElement[]
      */
     public function xpath($path)
     {
-        return array_map(function($el)  {
+        return array_map(function ($el) {
             return new QuiteSimpleXMLElement($el, $this);
         }, $this->el->xpath($path));
     }
@@ -161,6 +161,7 @@ class QuiteSimpleXMLElement
      * Alias for xpath().
      *
      * @param $path
+     *
      * @return QuiteSimpleXMLElement[]
      */
     public function all($path)
@@ -169,7 +170,7 @@ class QuiteSimpleXMLElement
     }
 
     /**
-     * Returns the *untrimmed* text content of the node
+     * Returns the *untrimmed* text content of the node.
      */
     public function __toString()
     {
@@ -193,13 +194,14 @@ class QuiteSimpleXMLElement
         $ch = $ns
             ? $this->el->children($this->namespaces[$ns])
             : $this->el->children();
-        $o = array();
+        $o = [];
         foreach ($ch as $c) {
-            $o[] = new QuiteSimpleXMLElement($c, $this);
+            $o[] = new self($c, $this);
         }
 
         return $o;
     }
+
     public function count($ns = null)
     {
         return $ns
@@ -211,21 +213,24 @@ class QuiteSimpleXMLElement
     {
         return $this->el->attributes();
     }
+
     public function asXML()
     {
         return $this->el->asXML();
     }
+
     public function getName()
     {
         return $this->el->getName();
     }
+
     public function getNamespaces($recursive = false)
     {
         return $this->el->getNamespaces($recursive);
     }
 
     /**
-     * Set the node value
+     * Set the node value.
      */
     public function setValue($value)
     {
@@ -239,7 +244,7 @@ class QuiteSimpleXMLElement
 
     /**
      * Replaces the current node. Thanks to @hakre
-     * <http://stackoverflow.com/questions/17661167/how-to-replace-xml-node-with-simplexmlelement-php>
+     * <http://stackoverflow.com/questions/17661167/how-to-replace-xml-node-with-simplexmlelement-php>.
      */
     public function replace(QuiteSimpleXMLElement $element)
     {
@@ -251,10 +256,11 @@ class QuiteSimpleXMLElement
         $oldNode->parentNode->replaceChild($newNode, $oldNode);
     }
 
-    public static function make($input, $ns = array())
+    public static function make($input, $ns = [])
     {
-        $elem = new QuiteSimpleXMLElement($input);
+        $elem = new self($input);
         $elem->registerXPathNamespaces($ns);
+
         return $elem;
     }
 }

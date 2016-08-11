@@ -1,4 +1,6 @@
-<?php namespace Danmichaelo\QuiteSimpleXMLElement;
+<?php
+
+namespace Danmichaelo\QuiteSimpleXMLElement;
 
 class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
 {
@@ -40,7 +42,7 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
 	 	     </ns1:CheckOutItemResponse>
 	 	  </ns1:NCIPMessage>';
         $dom = new QuiteSimpleXMLElement($xml);
-        $ns = array('n' => 'http://www.niso.org/2008/ncip');
+        $ns = ['n' => 'http://www.niso.org/2008/ncip'];
         $dom->registerXPathNamespaces($ns);
 
         $this->assertInstanceOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $dom);
@@ -183,8 +185,6 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('creator', $root->first('/sear:SEGMENTS/sear:FACETLIST/sear:FACET')->attr('NAME'));
     }
 
-
-
     public function testHas()
     {
         $xml = '
@@ -216,7 +216,7 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
 		  </ns1:NCIPMessage>';
         $root = new QuiteSimpleXMLElement($xml);
 
-        $this->assertEquals(array('ns1' => 'http://www.niso.org/2008/ncip'), $root->getNamespaces());
+        $this->assertEquals(['ns1' => 'http://www.niso.org/2008/ncip'], $root->getNamespaces());
     }
 
     public function testChildCount()
@@ -243,7 +243,7 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
 	 	     </ns1:CheckOutItemResponse>
 	 	  </ns1:NCIPMessage>';
         $dom = new QuiteSimpleXMLElement($xml);
-        $ns = array('n' => 'http://www.niso.org/2008/ncip');
+        $ns = ['n' => 'http://www.niso.org/2008/ncip'];
         $dom->registerXPathNamespaces($ns);
 
         $node1 = $dom->first('/n:NCIPMessage');
@@ -338,7 +338,7 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
                 Hi
              </ns1:Test>
           </ns1:NCIPMessage>';
-        $expectedResult= '
+        $expectedResult = '
           <ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip">
              <ns1:Test2>Replaced</ns1:Test2>
              <ns1:Test>
@@ -356,45 +356,45 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
 
     public function testMake()
     {
-        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>world</hello></doc>', array(
+        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>world</hello></doc>', [
             's' => 'http://www.loc.gov/zing/srw/',
-        ));
+        ]);
 
         $this->assertEquals('world', $el->text('s:hello'));
     }
 
     public function testToString()
     {
-        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>world</hello></doc>', array(
+        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>world</hello></doc>', [
             's' => 'http://www.loc.gov/zing/srw/',
-        ));
+        ]);
 
         $this->assertEquals('world', strval($el->first('s:hello')));
     }
 
     public function testAttributes()
     {
-        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello here="there">world</hello></doc>', array(
+        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello here="there">world</hello></doc>', [
             's' => 'http://www.loc.gov/zing/srw/',
-        ));
+        ]);
 
-        $this->assertEquals(array('here' => 'there'), iterator_to_array($el->first('s:hello')->attributes()));
+        $this->assertEquals(['here' => 'there'], iterator_to_array($el->first('s:hello')->attributes()));
     }
 
     public function testFirstReturnsNullForNonexistingNode()
     {
-        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>first</hello><hello>second</hello></doc>', array(
+        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>first</hello><hello>second</hello></doc>', [
             's' => 'http://www.loc.gov/zing/srw/',
-        ));
+        ]);
 
         $this->assertSame(null, $el->first('world'));
     }
 
     public function testXpathShouldReturnInstancesOfQuiteSimpleXMLElement()
     {
-        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>first</hello><hello>second</hello></doc>', array(
+        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>first</hello><hello>second</hello></doc>', [
             's' => 'http://www.loc.gov/zing/srw/',
-        ));
+        ]);
 
         $this->assertContainsOnlyInstancesOf(QuiteSimpleXMLElement::class, $el->xpath('hello'));
     }
