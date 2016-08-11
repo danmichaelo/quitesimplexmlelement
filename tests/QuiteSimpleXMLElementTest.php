@@ -132,6 +132,24 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Test', $root->text('/sear:SEGMENTS/sear:FACETLIST/sear:FACET'));
     }
 
+    public function testUntrimmedText()
+    {
+        $xml = '
+            <sear:SEGMENTS xmlns:sear="http://www.exlibrisgroup.com/xsd/jaguar/search">
+                <sear:FACETLIST ACCURATE_COUNTERS="true">
+                    <sear:FACET NAME="creator" COUNT="200">
+                        Test
+                    </sear:FACET>
+                </sear:FACETLIST>
+            </sear:SEGMENTS>';
+        $root = new QuiteSimpleXMLElement($xml);
+        $node = $root->first('/sear:SEGMENTS/sear:FACETLIST/sear:FACET');
+
+        $this->assertEquals('
+                        Test
+                    ', $node->text('.', false));
+    }
+
     public function testTextOfNonExistingNode()
     {
         $xml = '
@@ -352,5 +370,14 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
         ));
 
         $this->assertEquals('world', strval($el->first('s:hello')));
+    }
+
+    public function testAttributes()
+    {
+        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello here="there">world</hello></doc>', array(
+            's' => 'http://www.loc.gov/zing/srw/',
+        ));
+
+        $this->assertEquals(array('here' => 'there'), iterator_to_array($el->first('s:hello')->attributes()));
     }
 }
