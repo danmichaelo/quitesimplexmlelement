@@ -107,11 +107,6 @@ class QuiteSimpleXMLElement
         # Convenience method
         $r = $this->el->xpath($path);
 
-        // in case of an error
-        if ($r === false) {
-            return '';
-        }
-
         // no results
         if (count($r) === 0) {
             return '';
