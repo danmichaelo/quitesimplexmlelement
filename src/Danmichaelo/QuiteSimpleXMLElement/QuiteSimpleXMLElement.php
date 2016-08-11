@@ -46,7 +46,6 @@ class InvalidXMLException extends \Exception
     {
         parent::__construct($message, $code, $previous);
     }
-
 }
 
 class QuiteSimpleXMLElement
@@ -85,7 +84,6 @@ class QuiteSimpleXMLElement
         } else {
             $this->namespaces = $this->el->getNamespaces(true);
         }
-
     }
 
     public function registerXPathNamespace($prefix, $uri)
@@ -153,7 +151,9 @@ class QuiteSimpleXMLElement
     public function xpath($path)
     {
         $r = $this->el->xpath($path);
-        if ($r === false) return false;
+        if ($r === false) {
+            return false;
+        }
         $r2 = array();
         foreach ($r as $i) {
             $r2[] = new QuiteSimpleXMLElement($i, $this);
@@ -210,10 +210,22 @@ class QuiteSimpleXMLElement
             : count($this->el->children());
     }
 
-    public function attributes() { return $this->el->attributes(); }
-    public function asXML() { return $this->el->asXML(); }
-    public function getName() { return $this->el->getName(); }
-    public function getNamespaces($recursive = false) { return $this->el->getNamespaces($recursive); }
+    public function attributes()
+    {
+        return $this->el->attributes();
+    }
+    public function asXML()
+    {
+        return $this->el->asXML();
+    }
+    public function getName()
+    {
+        return $this->el->getName();
+    }
+    public function getNamespaces($recursive = false)
+    {
+        return $this->el->getNamespaces($recursive);
+    }
 
     /**
      * Set the node value
@@ -232,7 +244,8 @@ class QuiteSimpleXMLElement
      * Replaces the current node. Thanks to @hakre
      * <http://stackoverflow.com/questions/17661167/how-to-replace-xml-node-with-simplexmlelement-php>
      */
-    public function replace(QuiteSimpleXMLElement $element) {
+    public function replace(QuiteSimpleXMLElement $element)
+    {
         $oldNode = $this->asDOMElement();
         $newNode = $oldNode->ownerDocument->importNode(
             $element->asDOMElement(),

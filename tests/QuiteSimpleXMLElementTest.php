@@ -53,7 +53,6 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
 
         // and we should get the SimpleXMLElement from el()
         $this->assertInstanceOf('SimpleXMLElement', $dom->first('/n:NCIPMessage')->el());
-
     }
 
     public function testExampleXmlWithDefaultNamespacePrefix()
@@ -269,8 +268,8 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-	 * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
-	 */
+     * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
+     */
     public function testParseErrorneousXML()
     {
         $xml = '<ns1:NCI';
@@ -278,8 +277,8 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-	 * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
-	 */
+     * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
+     */
     public function testParseEmptyXML()
     {
         $xml = '';
@@ -287,24 +286,24 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-	 * @expectedException InvalidArgumentException
-	 */
+     * @expectedException InvalidArgumentException
+     */
     public function testArgumentIsNull()
     {
         $dom = new QuiteSimpleXMLElement(null);
     }
 
     /**
-	 * @expectedException InvalidArgumentException
-	 */
+     * @expectedException InvalidArgumentException
+     */
     public function testArgumentOfUnknownType()
     {
         $dom = new QuiteSimpleXMLElement(2.0);
     }
 
     /**
-	 * @expectedException InvalidArgumentException
-	 */
+     * @expectedException InvalidArgumentException
+     */
     public function testArgumentOfUnknownClass()
     {
         $dom = new QuiteSimpleXMLElement(new \DateTime());
@@ -335,7 +334,6 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
         $node->replace($new);
 
         $this->assertXmlStringEqualsXmlString($expectedResult, $el->asXML());
-
     }
 
     public function testMake()
@@ -355,5 +353,4 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('world', strval($el->first('s:hello')));
     }
-
 }
