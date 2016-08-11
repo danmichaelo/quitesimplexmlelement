@@ -396,6 +396,6 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
             's' => 'http://www.loc.gov/zing/srw/',
         ]);
 
-        $this->assertContainsOnlyInstancesOf(QuiteSimpleXMLElement::class, $el->xpath('hello'));
+        $this->assertContainsOnlyInstancesOf('Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', $el->xpath('hello'));
     }
 }
