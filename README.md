@@ -11,6 +11,8 @@ QuiteSimpleXMLElement
 The `QuiteSimpleXMLElement` class is a small wrapper around the `SimpleXMLElement` class. It was formerly known as `CustomXMLElement`. The main reason for developing the class was to let objects returned by the `xpath()`
 method inherit namespaces from the original object.
 
+Note: If you need PHP 5.3 support, please use the `0.4.*` version range. PHP 5.3 support was removed in version 0.5.
+
 Taking an example document,
 
 ```php

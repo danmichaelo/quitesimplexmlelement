@@ -145,31 +145,27 @@ class QuiteSimpleXMLElement
     }
 
     /**
+     * Returns an array of QuiteSimpleXMLElement instances.
+     *
      * @param $path
-     * @return bool|QuiteSimpleXMLElement[]
+     * @return QuiteSimpleXMLElement[]
      */
     public function xpath($path)
     {
-        $r = $this->el->xpath($path);
-
-        $r2 = array();
-        foreach ($r as $i) {
-            $r2[] = new QuiteSimpleXMLElement($i, $this);
-        }
-
-        return $r2;
+        return array_map(function($el)  {
+            return new QuiteSimpleXMLElement($el, $this);
+        }, $this->el->xpath($path));
     }
 
     /**
-     * Wrapper method for xpath() that *always* returns an array.
+     * Alias for xpath().
      *
      * @param $path
      * @return QuiteSimpleXMLElement[]
      */
     public function all($path)
     {
-        $r = $this->xpath($path);
-        return (!is_array($r)) ? array() : $r;
+        return $this->xpath($path);
     }
 
     /**

@@ -389,4 +389,13 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(null, $el->first('world'));
     }
+
+    public function testXpathShouldReturnInstancesOfQuiteSimpleXMLElement()
+    {
+        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>first</hello><hello>second</hello></doc>', array(
+            's' => 'http://www.loc.gov/zing/srw/',
+        ));
+
+        $this->assertContainsOnlyInstancesOf(QuiteSimpleXMLElement::class, $el->xpath('hello'));
+    }
 }
