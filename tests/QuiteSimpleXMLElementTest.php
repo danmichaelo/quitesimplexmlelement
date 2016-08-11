@@ -380,4 +380,13 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array('here' => 'there'), iterator_to_array($el->first('s:hello')->attributes()));
     }
+
+    public function testFirstReturnsNullForNonexistingNode()
+    {
+        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>first</hello><hello>second</hello></doc>', array(
+            's' => 'http://www.loc.gov/zing/srw/',
+        ));
+
+        $this->assertSame(null, $el->first('world'));
+    }
 }

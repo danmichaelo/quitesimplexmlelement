@@ -126,7 +126,7 @@ class QuiteSimpleXMLElement
         # Convenience method
         $x = $this->xpath($path);
 
-        return (count($x) === 0) ? false : $x[0];
+        return count($x) ? $x[0] : null;
     }
 
     /*
@@ -136,7 +136,7 @@ class QuiteSimpleXMLElement
     {
         $x = $this->xpath($path);
 
-        return (count($x) === 0) ? false : true;
+        return count($x) ? true : false;
     }
 
     public function el()
