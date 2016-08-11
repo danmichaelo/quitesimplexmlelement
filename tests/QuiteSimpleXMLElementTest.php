@@ -340,18 +340,18 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
 
     public function testMake()
     {
-        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>world</hello></doc>', [
+        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>world</hello></doc>', array(
             's' => 'http://www.loc.gov/zing/srw/',
-        ]);
+        ));
 
         $this->assertEquals('world', $el->text('s:hello'));
     }
 
     public function testToString()
     {
-        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>world</hello></doc>', [
+        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>world</hello></doc>', array(
             's' => 'http://www.loc.gov/zing/srw/',
-        ]);
+        ));
 
         $this->assertEquals('world', strval($el->first('s:hello')));
     }
