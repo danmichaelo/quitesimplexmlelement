@@ -37,9 +37,18 @@ echo trim((string)$b[0]);
 QuiteSimpleXMLElement allows for slightly less typing:
 
 ```php
-$root = new QuiteSimpleXMLElement($xml);
-$root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
-$a = $root->xpath('d:a');
+$node = new QuiteSimpleXMLElement($xml);
+$node->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
+$a = $node->xpath('d:a');
+$b = $a->xpath('d:b');
+echo trim((string)$b[0]);
+```
+
+or using `QuiteSimpleXMLElement::make`:
+
+```php
+$node = QuiteSimpleXMLElement::make($xml, ['d' => 'http://purl.org/dc/elements/1.1/']);
+$a = $node->xpath('d:a');
 $b = $a->xpath('d:b');
 echo trim((string)$b[0]);
 ```
@@ -102,7 +111,7 @@ $node->setValue('Hello world');
 
 #### count($namespace=null)
 
-Returns the number of child nodes, optionally within a given namespace.
+Returns the number of child nodes, optionally within a given namespace (by a registered prefix).
 
 ```php
 if ($node->count('d') > 0) {

@@ -323,4 +323,13 @@ class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    public function testMake()
+    {
+        $el = QuiteSimpleXMLElement::make('<doc xmlns="http://www.loc.gov/zing/srw/"><hello>world</hello></doc>', [
+            's' => 'http://www.loc.gov/zing/srw/',
+        ]);
+
+        $this->assertEquals('world', $el->text('s:hello'));
+    }
+
 }

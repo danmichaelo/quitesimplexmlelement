@@ -245,4 +245,11 @@ class QuiteSimpleXMLElement
         );
         $oldNode->parentNode->replaceChild($newNode, $oldNode);
     }
+
+    public static function make($input, $ns = [])
+    {
+        $elem = new QuiteSimpleXMLElement($input);
+        $elem->registerXPathNamespaces($ns);
+        return $elem;
+    }
 }
