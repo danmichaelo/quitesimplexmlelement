@@ -151,9 +151,7 @@ class QuiteSimpleXMLElement
     public function xpath($path)
     {
         $r = $this->el->xpath($path);
-        if ($r === false) {
-            return false;
-        }
+
         $r2 = array();
         foreach ($r as $i) {
             $r2[] = new QuiteSimpleXMLElement($i, $this);
