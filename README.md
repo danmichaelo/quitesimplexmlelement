@@ -1,5 +1,4 @@
-QuiteSimpleXMLElement
-===============
+#QuiteSimpleXMLElement
 
 [![Build Status](http://img.shields.io/travis/danmichaelo/quitesimplexmlelement.svg?style=flat-square)](https://travis-ci.org/danmichaelo/quitesimplexmlelement)
 [![Coverage Status](http://img.shields.io/coveralls/danmichaelo/quitesimplexmlelement.svg?style=flat-square)](https://coveralls.io/r/danmichaelo/quitesimplexmlelement?branch=master)
@@ -7,11 +6,13 @@ QuiteSimpleXMLElement
 [![Latest Stable Version](http://img.shields.io/packagist/v/danmichaelo/quitesimplexmlelement.svg?style=flat-square)](https://packagist.org/packages/danmichaelo/quitesimplexmlelement)
 [![Total Downloads](http://img.shields.io/packagist/dt/danmichaelo/quitesimplexmlelement.svg?style=flat-square)](https://packagist.org/packages/danmichaelo/quitesimplexmlelement)
 
-
-The `QuiteSimpleXMLElement` class is a small wrapper around the `SimpleXMLElement` class. It was formerly known as `CustomXMLElement`. The main reason for developing the class was to let objects returned by the `xpath()`
-method inherit namespaces from the original object.
+The `QuiteSimpleXMLElement` class is a small wrapper built around the `SimpleXMLElement` class that adds some convenience methods and makes it easier to work with namespaces. The main reason for developing the class was to let objects returned by the `xpath()` method inherit namespaces from the original object. It was formerly known as `CustomXMLElement`. 
 
 Note: If you need PHP 5.3 support, please use the `0.4.*` version range. PHP 5.3 support was removed in version 0.5.
+
+The library is actively maintained and pull requests are welcome.
+
+## Why this library was developed
 
 Taking an example document,
 
@@ -57,11 +58,11 @@ echo trim((string)$b[0]);
 
 A note on the design: I would have preferred to extend the original SimpleXMLElement class, but the constructor is static, which is why I wrote a wrapper instead.
 
-### Convenience methods
+## Convenience methods
 
 The library defines some new methods to support less typing and cleaner code.
 
-#### attr($name)
+### attr($name)
 
 Returns the value of an attribute as a string
 
@@ -69,7 +70,7 @@ Returns the value of an attribute as a string
 echo $node->attr('id');
 ```
 
-#### text($xpath)
+### text($xpath)
 
 Returns the text content of the node
 
@@ -77,7 +78,7 @@ Returns the text content of the node
 echo $node->text('d:a/d:b');
 ```
 
-#### first($xpath)
+### first($xpath)
 
 Returns the first node that matches the given path, or null if none.
 
@@ -93,7 +94,7 @@ Returns all nodes that matches the given path, or an empty array if none.
 $node = $node->all('d:a/d:b');
 ```
 
-#### has($xpath)
+### has($xpath)
 
 Returns true if the node exists, false if not
 
@@ -103,7 +104,7 @@ if ($node->has('d:a/d:b') {
 }
 ```
 
-#### setValue($value)
+### setValue($value)
 
 Sets the value of a node
 
@@ -111,7 +112,7 @@ Sets the value of a node
 $node->setValue('Hello world');
 ```
 
-#### count($namespace=null)
+### count($namespace=null)
 
 Returns the number of child nodes, optionally within a given namespace (by a registered prefix).
 
@@ -121,7 +122,7 @@ if ($node->count('d') > 0) {
 }
 ```
 
-#### replace($newNode)
+### replace($newNode)
 
 Replaces the current node with a new one. Example:
 
