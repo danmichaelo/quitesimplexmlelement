@@ -94,11 +94,11 @@ class QuiteSimpleXMLElement
         }
 
         if (gettype($elem) == 'object') {
-            if (in_array(get_class($elem),
-                ['Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement', 'SimpleXMLElement'])) {
-                return $elem; // assume it's a SimpleXMLElement
-            } else {
-                throw new InvalidArgumentException('Unknown object given to QuiteSimpleXMLElement. Expected SimpleXMLElement or QuiteSimpleXMLElement.');
+            switch (get_class($elem)) {
+                case 'Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement':
+                    return $elem->el();
+                case 'SimpleXMLElement':
+                    return $elem;
             }
         }
 
