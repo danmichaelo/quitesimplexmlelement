@@ -245,8 +245,9 @@ class QuiteSimpleXMLElementTest extends TestCase
 	 	     </ns1:CheckOutItemResponse>
 	 	  </ns1:NCIPMessage>';
         $dom = new QuiteSimpleXMLElement($xml);
-        $ns = ['n' => 'http://www.niso.org/2008/ncip'];
-        $dom->registerXPathNamespaces($ns);
+        $dom->registerXPathNamespaces([
+            'n' => 'http://www.niso.org/2008/ncip'
+        ]);
 
         $node1 = $dom->first('/n:NCIPMessage');
         $node2 = $dom->first('/n:NCIPMessage/n:CheckOutItemResponse/n:DateDue');
