@@ -2,7 +2,9 @@
 
 namespace Danmichaelo\QuiteSimpleXMLElement;
 
-class QuiteSimpleXMLElementTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class QuiteSimpleXMLElementTest extends TestCase
 {
     public function testExampleXmlWithNamespace()
     {
