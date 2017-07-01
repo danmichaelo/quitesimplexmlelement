@@ -48,7 +48,14 @@ use SimpleXMLElement;
 
 class QuiteSimpleXMLElement
 {
+    /**
+     * @var array
+     */
     public $namespaces;
+
+    /**
+     * @var SimpleXMLElement
+     */
     public $el;
 
     /**
