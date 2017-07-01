@@ -3,6 +3,7 @@
 [![Build Status](http://img.shields.io/travis/danmichaelo/quitesimplexmlelement.svg?style=flat-square)](https://travis-ci.org/danmichaelo/quitesimplexmlelement)
 [![Coverage Status](http://img.shields.io/coveralls/danmichaelo/quitesimplexmlelement.svg?style=flat-square)](https://coveralls.io/r/danmichaelo/quitesimplexmlelement?branch=master)
 [![Code Quality](http://img.shields.io/scrutinizer/g/danmichaelo/quitesimplexmlelement/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/danmichaelo/quitesimplexmlelement/?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/2654313d-e4ea-48dd-90c0-c13863d10c3a/big.png)](https://insight.sensiolabs.com/projects/2654313d-e4ea-48dd-90c0-c13863d10c3a)
 [![Latest Stable Version](http://img.shields.io/packagist/v/danmichaelo/quitesimplexmlelement.svg?style=flat-square)](https://packagist.org/packages/danmichaelo/quitesimplexmlelement)
 [![Total Downloads](http://img.shields.io/packagist/dt/danmichaelo/quitesimplexmlelement.svg?style=flat-square)](https://packagist.org/packages/danmichaelo/quitesimplexmlelement)
 
