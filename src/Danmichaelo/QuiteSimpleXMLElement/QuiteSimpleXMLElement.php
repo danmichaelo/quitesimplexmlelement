@@ -69,8 +69,8 @@ class QuiteSimpleXMLElement
     public function __construct($elem, QuiteSimpleXMLElement $inherit_from = null)
     {
         $this->namespaces = [];
-
         $this->el = $this->getSimpleXMLElement($elem);
+
         if (is_null($this->el)) {
             throw new InvalidArgumentException('QuiteSimpleXMLElement expects a string or a QuiteSimpleXMLElement/SimpleXMLElement object.');
         }
@@ -100,12 +100,7 @@ class QuiteSimpleXMLElement
         }
 
         if (gettype($elem) == 'object') {
-            switch (get_class($elem)) {
-                case 'Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement':
-                    return $elem->el();
-                case 'SimpleXMLElement':
-                    return $elem;
-            }
+            return $this->initFromObject($elem);
         }
     }
 
@@ -121,6 +116,22 @@ class QuiteSimpleXMLElement
             return new SimpleXMLElement($content);
         } catch (Exception $e) {
             throw new InvalidXMLException('Invalid XML encountered: ' . $content);
+        }
+    }
+
+    /**
+     * Internal helper method to parse content from string.
+     *
+     * @param object $content
+     * @return SimpleXMLElement
+     */
+    private function initFromObject($elem)
+    {
+        switch (get_class($elem)) {
+            case 'Danmichaelo\QuiteSimpleXMLElement\QuiteSimpleXMLElement':
+                return $elem->el();
+            case 'SimpleXMLElement':
+                return $elem;
         }
     }
 
