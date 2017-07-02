@@ -180,12 +180,13 @@ abstract class SimpleXMLElementWrapper
     }
 
     /**
-     * Returns the child elements.
+     * Returns child elements.
      *
-     * Note: By default, only children without namespace will be returned. You can
+     * Note: By default, only children without namespace will be returned! You can
      * specify a namespace prefix to get children with that namespace prefix.
      *
-     * Tip: You could also use `xpath('child::node()')`.
+     * If you want all child elements, namespaced or not, use
+     * `$record->all('child::*')` instead.
      *
      * @param null $ns
      * @return QuiteSimpleXMLElement[]
@@ -207,8 +208,11 @@ abstract class SimpleXMLElementWrapper
     /**
      * Returns the number of child elements.
      *
-     * Note: By default, only children without namespace will be counted. You can
+     * Note: By default, only children without namespace will be counted! You can
      * specify a namespace prefix to count children with that namespace prefix.
+     *
+     * If you want all child elements, namespaced or not, use
+     * `count($record->all('child::*'))` instead.
      *
      * @param null $ns
      * @return int

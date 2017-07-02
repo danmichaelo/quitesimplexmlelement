@@ -232,6 +232,7 @@ class QuiteSimpleXMLElementTest extends TestCase
         $dom = new QuiteSimpleXMLElement($xml);
         $node1 = $dom->first('/ns1:NCIPMessage');
         $node2 = $dom->first('/ns1:NCIPMessage/ns1:CheckOutItemResponse/ns1:DateDue');
+        $this->assertEquals(0, $node1->count());
         $this->assertEquals(1, $node1->count('ns1'));
         $this->assertEquals(0, $node2->count('ns1'));
     }
