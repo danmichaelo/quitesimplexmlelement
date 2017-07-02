@@ -113,16 +113,6 @@ Sets the value of a node
 $node->setValue('Hello world');
 ```
 
-### count($namespace=null)
-
-Returns the number of child nodes, optionally within a given namespace (by a registered prefix).
-
-```php
-if ($node->count('d') > 0) {
-  …
-}
-```
-
 ### replace($newNode)
 
 Replaces the current node with a new one. Example:
