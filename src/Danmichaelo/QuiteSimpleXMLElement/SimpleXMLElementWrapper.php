@@ -190,7 +190,7 @@ abstract class SimpleXMLElementWrapper
      * If you want all child elements, namespaced or not, use
      * `$record->all('child::*')` instead.
      *
-     * @param null $ns
+     * @param string $ns
      * @return QuiteSimpleXMLElement[]
      */
     public function children($ns = null)
@@ -216,7 +216,7 @@ abstract class SimpleXMLElementWrapper
      * If you want all child elements, namespaced or not, use
      * `count($record->all('child::*'))` instead.
      *
-     * @param null $ns
+     * @param string $ns
      * @return int
      */
     public function count($ns = null)
