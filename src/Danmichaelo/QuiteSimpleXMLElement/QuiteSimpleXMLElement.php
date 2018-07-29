@@ -82,7 +82,7 @@ class QuiteSimpleXMLElement extends SimpleXMLElementWrapper
      * @param bool   $trim
      * @return string
      */
-    public function text($path='.', $trim=true)
+    public function text($path = '.', $trim = true)
     {
         $text = strval($this->first($path));
 

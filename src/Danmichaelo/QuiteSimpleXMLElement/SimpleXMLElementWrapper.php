@@ -72,7 +72,9 @@ abstract class SimpleXMLElementWrapper
         $this->el = $this->getSimpleXMLElement($elem);
 
         if (is_null($this->el)) {
-            throw new InvalidArgumentException('QuiteSimpleXMLElement expects a string or a QuiteSimpleXMLElement/SimpleXMLElement object.');
+            throw new InvalidArgumentException(
+                'QuiteSimpleXMLElement expects a string or a QuiteSimpleXMLElement/SimpleXMLElement object.'
+            );
         }
 
         if (is_null($inherit_from)) {
@@ -191,7 +193,7 @@ abstract class SimpleXMLElementWrapper
      * @param null $ns
      * @return QuiteSimpleXMLElement[]
      */
-    public function children($ns=null)
+    public function children($ns = null)
     {
         $ch = is_null($ns)
             ? $this->el->children()

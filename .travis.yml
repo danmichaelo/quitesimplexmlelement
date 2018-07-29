@@ -5,12 +5,13 @@ php:
   - 7.0
   - 7.1
 
-before_script: 
+before_script:
  - echo 'date.timezone = "Europe/Oslo"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
  - composer install --dev -o -n
 
-script: 
+script:
  - mkdir -p build/logs
+ - vendor/bin/phpcs --standard=PSR2 src
  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
