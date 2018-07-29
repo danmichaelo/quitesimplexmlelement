@@ -1,6 +1,6 @@
 {
     "name": "danmichaelo/quitesimplexmlelement",
-    "description": "QuiteSimpleXMLElement, formerly known as CustomXMLElement, is a simple wrapper around SimpleXmlElement for easier namespace handling",
+    "description": "Wrapper that adds easier namespace handling and some helper methods to SimpleXML.",
     "keywords": ["xml"],
     "type": "library",
     "authors": [
