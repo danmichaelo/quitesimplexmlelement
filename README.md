@@ -65,7 +65,7 @@ The library defines some new methods to support less typing and cleaner code.
 
 ### attr($name)
 
-Returns the value of an attribute as a string
+Returns the value of an attribute as a string. Namespace prefixes are supported.
 
 ```php
 echo $node->attr('id');

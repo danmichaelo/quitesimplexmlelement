@@ -15,7 +15,7 @@
         "ext-simplexml": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7|^6.0",
+        "phpunit/phpunit": "^5.7|^6.0|^7.0",
         "satooshi/php-coveralls": "~1.0"
     },
     "autoload": {

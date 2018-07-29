@@ -225,12 +225,14 @@ abstract class SimpleXMLElementWrapper
     /**
      * Returns and element's attributes.
      *
+     * @param string $ns
+     * @param bool $is_prefix
      * @return SimpleXMLElement a `SimpleXMLElement` object that can be
      * iterated over to loop through the attributes on the tag.
      */
-    public function attributes()
+    public function attributes($ns = null, $is_prefix = false)
     {
-        return $this->el->attributes();
+        return $this->el->attributes($ns, $is_prefix);
     }
 
     /**

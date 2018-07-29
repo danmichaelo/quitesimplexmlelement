@@ -119,6 +119,23 @@ class QuiteSimpleXMLElementTest extends TestCase
         $this->assertEquals('', $node->attr('SOMEETHING_ELSE'));
     }
 
+    public function testNamespacedAttr()
+    {
+        $xml = '
+            <sear:SEGMENTS xmlns:sear="http://www.exlibrisgroup.com/xsd/jaguar/search">
+                <sear:FACETLIST ACCURATE_COUNTERS="true">
+                    <sear:FACET sear:NAME="creator" COUNT="200">
+                        Test
+                    </sear:FACET>
+                </sear:FACETLIST>
+            </sear:SEGMENTS>';
+        $root = new QuiteSimpleXMLElement($xml);
+        $node = $root->first('/sear:SEGMENTS/sear:FACETLIST/sear:FACET');
+
+        $this->assertEquals('creator', $node->attr('sear:NAME'));
+        $this->assertEquals('', $node->attr('sear:SOMEETHING_ELSE'));
+    }
+
     public function testText()
     {
         $xml = '
