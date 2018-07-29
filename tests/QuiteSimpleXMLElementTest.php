@@ -307,45 +307,45 @@ class QuiteSimpleXMLElementTest extends TestCase
     }
 
     /**
-     * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
+     * @expectedException \Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
      */
-    public function testParseErrorneousXML()
+    public function testParseErroneousXMLShouldThrowException()
     {
         $xml = '<ns1:NCI';
         new QuiteSimpleXMLElement($xml);
     }
 
     /**
-     * @expectedException Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
+     * @expectedException \Danmichaelo\QuiteSimpleXMLElement\InvalidXMLException
      */
-    public function testParseEmptyXML()
+    public function testParseEmptyXMLShouldThrowException()
     {
         $xml = '';
         new QuiteSimpleXMLElement($xml);
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testArgumentIsNull()
     {
-        $dom = new QuiteSimpleXMLElement(null);
+        new QuiteSimpleXMLElement(null);
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testArgumentOfUnknownType()
     {
-        $dom = new QuiteSimpleXMLElement(2.0);
+        new QuiteSimpleXMLElement(2.0);
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testArgumentOfUnknownClass()
     {
-        $dom = new QuiteSimpleXMLElement(new \DateTime());
+        new QuiteSimpleXMLElement(/** @scrutinizer ignore-type */ new \DateTime());
     }
 
     public function testReplace()
