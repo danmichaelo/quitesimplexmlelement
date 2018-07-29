@@ -7,9 +7,9 @@
 [![Latest Stable Version](http://img.shields.io/packagist/v/danmichaelo/quitesimplexmlelement.svg?style=flat-square)](https://packagist.org/packages/danmichaelo/quitesimplexmlelement)
 [![Total Downloads](http://img.shields.io/packagist/dt/danmichaelo/quitesimplexmlelement.svg?style=flat-square)](https://packagist.org/packages/danmichaelo/quitesimplexmlelement)
 
-The `QuiteSimpleXMLElement` class is a small wrapper built around the `SimpleXMLElement` class that adds some convenience methods and makes it easier to work with namespaces. The main reason for developing the class was to let objects returned by the `xpath()` method inherit namespaces from the original object. It was formerly known as `CustomXMLElement`. 
+The `QuiteSimpleXMLElement` class is a small wrapper built around the `SimpleXMLElement` class that adds some convenience methods and makes it easier to work with namespaces. The main reason for developing the class was to let objects returned by the `xpath()` method inherit namespaces from the original object. The package was formerly known as `CustomXMLElement`. 
 
-Note: If you need PHP 5.3 support, please use the `0.4.*` version range. PHP 5.3 support was removed in version 0.5.
+QuiteSimpleXMLElement supports PHP 5.6 and 7.x. If you need PHP 5.3 support, use the `0.4.*` version range as PHP 5.3 support was removed in version 0.5.
 
 The library is actively maintained and pull requests are welcome.
 
@@ -35,31 +35,28 @@ $root->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
 $a = $root->xpath('d:a');
 $a[0]->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
 $b = $a[0]->xpath('d:b');
-echo trim((string)$b[0]);
 ```
 
-QuiteSimpleXMLElement allows for slightly less typing:
+When using QuiteSimpleXMLElement, it should only be necessary to register the namespaces once and for all.
 
 ```php
 $node = new QuiteSimpleXMLElement($xml);
 $node->registerXPathNamespace('d', 'http://purl.org/dc/elements/1.1/');
 $a = $node->xpath('d:a');
 $b = $a->xpath('d:b');
-echo trim((string)$b[0]);
 ```
 
-or using `QuiteSimpleXMLElement::make`:
+The namespaces can also be defined using the alternative constructor `QuiteSimpleXMLElement::make`:
 
 ```php
 $node = QuiteSimpleXMLElement::make($xml, ['d' => 'http://purl.org/dc/elements/1.1/']);
 $a = $node->xpath('d:a');
 $b = $a->xpath('d:b');
-echo trim((string)$b[0]);
 ```
 
 A note on the design: I would have preferred to extend the original SimpleXMLElement class, but the constructor is static, which is why I wrote a wrapper instead.
 
-## Convenience methods
+## Helper methods
 
 The library defines some new methods to support less typing and cleaner code.
 
